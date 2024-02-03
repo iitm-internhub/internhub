@@ -95,7 +95,7 @@ const Event=()=> {
   )
 }
 
-function CalendarIcon(a) {
+function CalendarIcon(a: any) {
   return (
     <svg
      {...a}
@@ -118,7 +118,7 @@ function CalendarIcon(a) {
 }
 
 
-function LocateIcon(b) {
+function LocateIcon(b:any) {
   return (
     <svg
      {...b}
