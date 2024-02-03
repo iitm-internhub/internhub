@@ -18,7 +18,7 @@ const Header: React.FC = () => {
         </Link>
         <Link
           className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-          href="#"
+          href="/events"
         >
           Events
         </Link>
@@ -30,13 +30,13 @@ const Header: React.FC = () => {
         </Link>
         <Link
           className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-          href="#"
+          href="/teams"
         >
           Team
         </Link>
         <Link
           className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-          href="#"
+          href="/about"
         >
           About
         </Link>
