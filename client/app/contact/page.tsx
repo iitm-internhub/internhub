@@ -20,7 +20,7 @@ import { CardContent, Card } from "@/components/ui/card";
 
 const Contact = () => {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-500">
       <Card>
         <CardContent>
           <div className="space-y-8">
