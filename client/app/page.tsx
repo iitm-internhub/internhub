@@ -1,8 +1,14 @@
-import Header from "@/components/shared/Header";
+import EventsCarousel from "@/components/shared/EventsCarousel";
 import React from "react";
 
 const Main = () => {
-  return <main>main</main>;
+  return (
+    <main>
+      <div className="">
+        <EventsCarousel />
+      </div>
+    </main>
+  );
 };
 
 export default Main;
