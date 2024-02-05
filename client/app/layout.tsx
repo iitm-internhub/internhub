@@ -3,13 +3,15 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
 import { ThemeProvider } from "@/components/context/theme-provider";
-import Logo from '@/public/icons/InternhubLogo.svg'
+import Logo from "@/public/icons/InternhubLogo.svg";
 const inter = Inter({ subsets: ["latin"] });
+
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "InternHub",
   description: "IINTM Placement cell",
-  icons: Logo
+  icons: Logo,
 };
 
 export default function RootLayout({
@@ -18,11 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
     <html lang="en">
-
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system">
+          <Toaster />
           <Header />
           {children}
         </ThemeProvider>

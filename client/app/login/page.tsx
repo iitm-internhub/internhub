@@ -1,89 +1,137 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/Cx9sQwCmZmi
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-import { Label } from "@/components/ui/label";
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import Image from "next/image";
+import React from "react";
+import loginFormSchema from "@/lib/schemas/login.schema";
 
-import Logo from "@/public/images/internhub.jpg";
-import { Metadata } from "next";
+import axiosInstance from "@/lib/axios-instance";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
-export const metadata: Metadata = {
-  title: "InternHub - Login",
-  description: "IINTM Placement cell",
-};
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
+    const { password, email } = values;
+    try {
+      const { data } = await axiosInstance.post("/api/v1/auth/login", {
+        email: email,
+        password: password,
+      });
+      const { authToken, success, message } = data;
+      if (success == true) {
+        localStorage.setItem("access_token", authToken);
+        toast.success(message);
+        router.push("/");
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      const data: any = err?.response?.data;
+      toast.error(data?.message);
+    }
+  };
+
   return (
-    <div
-      key="1"
-      className="flex flex-col md:flex-row min-h-screen bg-gray-100 dark:bg-gray-900"
-    >
-      <aside className="md:w-1/3 bg-black flex flex-col items-center justify-center text-white p-8">
-        <div className="mb-8">
-          <Image
-            alt="Logo"
-            className="h-32 w-auto rounded-full"
-            src={Logo}
-            height={200}
-            width={200}
-          />
-        </div>
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Welcome Back!</h2>
-          <p className="text-gray-200">We&apos;re glad to see you again</p>
-        </div>
-      </aside>
-      <main className="flex-1 flex items-center justify-center p-8">
-        <div className="mx-auto max-w-sm space-y-6">
-          <div className="space-y-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
-            <p className="text-gray-500 dark:text-gray-400">
-              Enter your email below to login to your account
-            </p>
-          </div>
-          <div>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  placeholder="m@example.com"
-                  required
-                  type="email"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" required type="password" />
-              </div>
-              <Button className="w-full" type="submit">
-                Login
-              </Button>
+    <div className="flex min-h-[93vh] bg-gray-100 dark:bg-[#09090b]">
+      <div
+        className="w-1/2 bg-cover bg-center dark:opacity-60 lg:block hidden"
+        style={{
+          backgroundImage: "url('/images/authentication.avif')",
+        }}
+      />
+      <div className="m-auto w-full md:max-w-lg sm:max-w-sm max-w-xs p-8 bg-white shadow-md rounded-lg">
+        <h1 className="text-2xl font-bold text-gray-900 text-center">
+          Welcome back to InternHub
+        </h1>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mt-8 space-y-4"
+          >
+            <div>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="block text-sm font-medium text-gray-700">
+                      Email
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        placeholder="someone@gamil.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-            <Separator className="my-8" />
-            <div className="space-y-4">
-              <Button className="w-full" variant="outline">
-                Login with Google
-              </Button>
-              <Button className="w-full" variant="outline">
-                Login with GitHub
-              </Button>
-              <Link
-                className="inline-block w-full text-center text-sm underline"
-                href="#"
-              >
-                Forgot your password?
-              </Link>
+            <div>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="block text-sm font-medium text-gray-700">
+                      Password
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        placeholder="pass"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-          </div>
-        </div>
-      </main>
+            <Button className="w-full bg-gray-800 text-white hover:bg-gray-600">
+              Login
+            </Button>
+            <div className="text-center">
+              <p className="mt-2 text-sm text-gray-600">
+                Don&apos;t have an account ?
+                <Link
+                  className="font-medium text-blue-600 hover:text-blue-500 ml-2"
+                  href="/signup"
+                >
+                  Signup
+                </Link>
+              </p>
+            </div>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 };

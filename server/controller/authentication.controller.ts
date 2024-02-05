@@ -21,7 +21,7 @@ const Signup = async (req: Request, res: Response) => {
     if (Object.keys(isUserAlreadyExists).length !== 0) {
       return res.status(400).json({
         success: false,
-        message: "user already exits",
+        message: "user already exists",
       });
     }
 
@@ -104,8 +104,8 @@ const Login = async (req: Request, res: Response) => {
 
           return res.status(200).json({
             success: true,
-            message: "user authorized successfully",
-            token: authToken,
+            message: "user logged in successfully",
+            authToken: authToken,
           });
         } else {
           return res
