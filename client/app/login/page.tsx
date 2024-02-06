@@ -48,6 +48,7 @@ const Login = () => {
         localStorage.setItem("access_token", authToken);
         toast.success(message);
         router.push("/");
+        window.location.href = "/";
       }
     } catch (error) {
       const err = error as AxiosError;
