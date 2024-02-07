@@ -7,6 +7,7 @@ import Logo from "@/public/icons/InternhubLogo.svg";
 const inter = Inter({ subsets: ["latin"] });
 
 import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "@/components/context/auth";
 
 export const metadata: Metadata = {
   title: "InternHub",
@@ -24,8 +25,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system">
           <Toaster />
-          <Header />
-          {children}
+          <AuthProvider>
+            <Header />
+            {children}
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
