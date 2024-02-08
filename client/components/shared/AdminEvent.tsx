@@ -1,135 +1,129 @@
-import { Button } from "@/components/ui/button";
-import { TabsTrigger, TabsList, TabsContent, Tabs } from "@/components/ui/tabs";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import Link from "next/link";
+import Image from "next/image";
+
+import Event from "@/public/images/event.jpeg";
+import { Button } from "../ui/button";
 
 const AdminEventPanel = () => {
+  const eventCardList = [
+    {
+      image: Event,
+      title: "Noteworthy technology acquisitions 2021",
+      description:
+        "Here are the biggest enterprise technology acquisitions of 2021 so, far in reverse chronological order.",
+      date: "20-10-2023",
+    },
+    {
+      image: Event,
+      title: "Noteworthy technology acquisitions 2021",
+      description:
+        "Here are the biggest enterprise technology acquisitions of 2021 so, far in reverse chronological order.",
+      date: "20-10-2023",
+    },
+    {
+      image: Event,
+      title: "Noteworthy technology acquisitions 2021",
+      description:
+        "Here are the biggest enterprise technology acquisitions of 2021 so, far in reverse chronological order.",
+      date: "20-10-2023",
+    },
+    {
+      image: Event,
+      title: "Noteworthy technology acquisitions 2021",
+      description:
+        "Here are the biggest enterprise technology acquisitions of 2021 so, far in reverse chronological order.",
+      date: "20-10-2023",
+    },
+    {
+      image: Event,
+      title: "Noteworthy technology acquisitions 2021",
+      description:
+        "Here are the biggest enterprise technology acquisitions of 2021 so, far in reverse chronological order.",
+      date: "20-10-2023",
+    },
+  ];
+
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-      <Tabs className="flex flex-col gap-2 items-start" defaultValue="events">
-        <TabsList className="w-full justify-start">
-          <TabsTrigger value="events">Add New Event</TabsTrigger>
-          <TabsTrigger value="posts">Add New Blog Post</TabsTrigger>
-        </TabsList>
-        <TabsContent className="p-1 mx-auto" value="events">
-          <form className="space-y-4">
-            <div className="space-y-1">
-              <Label htmlFor="event-title">Title</Label>
-              <Input id="event-title" required />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="event-date">Date</Label>
-              <Input id="event-date" required type="date" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="event-description">Description</Label>
-              <Textarea id="event-description" required />
-            </div>
-            <div className="space-y-1">
-              <div className="flex items-center justify-center w-full">
-                <label
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  htmlFor="dropzone-file"
+    <>
+      <Button className="w-full my-4">Add New events</Button>
+
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-6">
+        {eventCardList.map((event) => (
+          <div
+            key={1}
+            className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          >
+            <Link href="#">
+              <Image
+                className="rounded-t-lg"
+                src={event.image}
+                alt=""
+                height={500}
+                width={500}
+              />
+            </Link>
+            <div className="p-5">
+              <Link
+                href="#"
+                className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                {event.title}
+              </Link>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                {event.description}
+              </p>
+              <p className="mb-3 text-gray-700 dark:text-gray-400 text-sm font-medium">
+                {event.date}
+              </p>
+              <div className="flex gap-4">
+                <Link
+                  href="#"
+                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                      fill="none"
-                      viewBox="0 0 20 16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or
-                      drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input
-                    className="hidden"
-                    id="dropzone-file"
-                    multiple
-                    type="file"
-                  />
-                </label>
+                  Update
+                  <svg
+                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                  </svg>
+                </Link>
+                <Link
+                  href="#"
+                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Delete
+                  <svg
+                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                  </svg>
+                </Link>
               </div>
             </div>
-            <Button className="w-full" type="submit">
-              Add Event
-            </Button>
-          </form>
-        </TabsContent>
-        <TabsContent className="p-1 mx-auto" value="posts">
-          <form className="space-y-4">
-            <div className="space-y-1">
-              <Label htmlFor="post-title">Title</Label>
-              <Input id="post-title" required />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="post-date">Date</Label>
-              <Input id="post-date" required type="date" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="post-description">Description</Label>
-              <Textarea id="post-description" required />
-            </div>
-            <div className="space-y-1">
-              <div className="flex items-center justify-center w-full">
-                <label
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  htmlFor="dropzone-file"
-                >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                      fill="none"
-                      viewBox="0 0 20 16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span>
-                      or drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <input
-                    className="hidden"
-                    id="dropzone-file"
-                    multiple
-                    type="file"
-                  />
-                </label>
-              </div>
-            </div>
-            <Button className="w-full" type="submit">
-              Add Blog Post
-            </Button>
-          </form>
-        </TabsContent>
-      </Tabs>
-    </main>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
