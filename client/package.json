@@ -22,7 +22,6 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.0",
     "embla-carousel-autoplay": "^8.0.0-rc22",
     "embla-carousel-react": "^8.0.0-rc22",
     "next": "14.1.0",
@@ -32,6 +31,7 @@
     "react-hook-form": "^7.50.0",
     "react-hot-toast": "^2.4.1",
     "tailwind-merge": "^2.2.1",
+    "tailwind-scrollbar": "^3.0.5",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
   },
