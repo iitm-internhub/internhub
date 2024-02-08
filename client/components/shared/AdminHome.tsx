@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import React from "react";
 
 const invoices = [
   {
@@ -54,7 +55,7 @@ const invoices = [
   },
 ];
 
-const AdminHome = () => {
+const AdminHome: React.FC = () => {
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>

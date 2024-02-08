@@ -2,8 +2,23 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import React from "react";
 
-const AdminLogin = () => {
+interface AdminLoginProps {
+  setUsername: (value: string) => void;
+  setPassword: (value: string) => void;
+  username: string | undefined;
+  password: string | undefined;
+  handleSubmit: () => void;
+}
+
+const AdminLogin: React.FC<AdminLoginProps> = ({
+  setPassword,
+  setUsername,
+  username,
+  password,
+  handleSubmit,
+}) => {
   return (
     <div className="flex items-center min-h-screen px-4">
       <div className="w-full max-w-md mx-auto space-y-8 p-4 rounded-lg backdrop-blur-lg shadow-lg">
@@ -13,7 +28,15 @@ const AdminLogin = () => {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="username">Username</Label>
-            <Input id="username" placeholder="Username" required />
+            <Input
+              id="username"
+              placeholder="Username"
+              required
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              value={username}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
@@ -22,9 +45,15 @@ const AdminLogin = () => {
               placeholder="Password"
               required
               type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </div>
-          <Button className="w-full">Login</Button>
+          <Button className="w-full" onClick={handleSubmit}>
+            Login
+          </Button>
         </div>
         <div className="text-center text-sm">
           <Link className="underline" href="#">

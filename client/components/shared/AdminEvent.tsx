@@ -48,9 +48,9 @@ const AdminEventPanel = () => {
       <Button className="w-full my-4">Add New events</Button>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-6">
-        {eventCardList.map((event) => (
+        {eventCardList.map((event, index) => (
           <div
-            key={1}
+            key={index}
             className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
           >
             <Link href="#">
