@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "rimraf dist && npx tsc && cp package.json dist/package.json && npm install && cp -r node_modules dist/node_modules",
+    "build": "npx tsc && cp package.json dist/package.json && npm install && cp -r node_modules dist/node_modules",
     "prestart": "npm run build",
     "start": "node dist/index.js",
     "dev": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
