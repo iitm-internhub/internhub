@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "server for internhub website.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "rimraf dist && npx tsc && cp package.json dist/package.json && npm install && cp -r node_modules dist/node_modules",
     "prestart": "npm run build",
