@@ -4,7 +4,7 @@
   "description": "server for internhub website.",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && npx tsc && cp package.json dist/package.json && npm install && cp node_modules dist/node_modules",
+    "build": "rimraf dist && npx tsc && cp package.json dist/package.json && npm install && cp -r node_modules dist/node_modules",
     "prestart": "npm run build",
     "start": "node index.js",
     "dev": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
