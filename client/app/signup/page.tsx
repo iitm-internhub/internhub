@@ -53,7 +53,10 @@ const Signup = () => {
         localStorage.setItem("access_token", authToken);
         toast.success(message);
         router.push("/");
+        return;
       }
+
+      toast.error("something went wrong");
     } catch (error) {
       const err = error as AxiosError;
       const data: any = err.response?.data;
