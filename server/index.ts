@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import { config } from "dotenv";
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import connectDatabase from "./db/connectDatabase";
@@ -7,7 +7,7 @@ import AuthenticationHandler from "./route/authentication.route";
 import AdminAuthHandler from "./admin-route/admin.auth.route";
 import AdminInfoHandler from "./admin-route/admin.info.route";
 
-dotenv.config();
+config();
 
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
