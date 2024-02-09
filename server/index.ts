@@ -18,7 +18,7 @@ app.listen(PORT, () => {
 
 const corsOptions = {
   AccessControlAllowOrigin: "*",
-  origin: "*",
+  origin: ["https://internhub-rho.vercel.app/", "http://localhost:3000/"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
 
