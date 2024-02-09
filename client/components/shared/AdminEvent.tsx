@@ -27,25 +27,11 @@ const AdminEventPanel = () => {
         "Here are the biggest enterprise technology acquisitions of 2021 so, far in reverse chronological order.",
       date: "20-10-2023",
     },
-    {
-      image: Event,
-      title: "Noteworthy technology acquisitions 2021",
-      description:
-        "Here are the biggest enterprise technology acquisitions of 2021 so, far in reverse chronological order.",
-      date: "20-10-2023",
-    },
-    {
-      image: Event,
-      title: "Noteworthy technology acquisitions 2021",
-      description:
-        "Here are the biggest enterprise technology acquisitions of 2021 so, far in reverse chronological order.",
-      date: "20-10-2023",
-    },
   ];
 
   return (
     <>
-      <Button className="w-full my-4">Add New events</Button>
+      <Button className="w-full my-2">Add New events</Button>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-6">
         {eventCardList.map((event, index) => (

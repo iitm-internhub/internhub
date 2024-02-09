@@ -1,24 +1,19 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useReducer, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import logo from "@/public/images/logo.png";
+import logo from "@/public/images/logo-blue.png";
 import DarkmodeToggle from "./ToggleDarkmode";
 import ProfileButton from "./ProfileButton";
 import MobileNavigation from "./MobileNavigation";
 
 import { useAuth } from "../context/auth";
-import toast from "react-hot-toast";
 
 const Header: React.FC = () => {
   const { userId } = useAuth();
   const isAuthenticated = !!userId;
-
-  if (isAuthenticated) {
-    toast.success("welcome to internhub");
-  }
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-sm">

@@ -37,9 +37,9 @@ const Admin = () => {
       if (data?.success) {
         localStorage.setItem("admin_access_token", data?.authToken);
         toast.success(`${data.message}`);
-      } else {
-        toast.error(`${data.message}`);
+        location.reload();
       }
+      toast.error(`${data.message}`);
     } catch (error) {
       const err = error as AxiosError;
       const data: any = err?.response?.data;

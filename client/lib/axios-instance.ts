@@ -1,5 +1,8 @@
 import axios from "axios";
 
+// http://localhost:8080
+// https://tiny-pig-scrubs.cyclic.app/
+
 const axiosInstance = axios.create({
   baseURL: "https://tiny-pig-scrubs.cyclic.app/",
   timeout: 5000,
