@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "cp package.json dist/package.json && npm i && tsc",
     "prestart": "npm run build",
     "start": "node dist/index.js",
     "dev": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
