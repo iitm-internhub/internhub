@@ -1,4 +1,4 @@
-import { config } from "dotenv";
+import "dotenv/config";
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import connectDatabase from "./db/connectDatabase";
@@ -6,8 +6,6 @@ import connectDatabase from "./db/connectDatabase";
 import AuthenticationHandler from "./route/authentication.route";
 import AdminAuthHandler from "./admin-route/admin.auth.route";
 import AdminInfoHandler from "./admin-route/admin.info.route";
-
-config();
 
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
@@ -18,7 +16,7 @@ app.listen(PORT, () => {
 
 const corsOptions = {
   AccessControlAllowOrigin: "*",
-  origin: ["https://internhub-rho.vercel.app/", "http://localhost:3000/"],
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
 
