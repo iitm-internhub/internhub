@@ -38,22 +38,33 @@ interface userInterface {
 }
 
 const AdminHome: React.FC = () => {
-  const [users, setUsers] = useState<Array<userInterface>>();
-
+  const [users, setUsers] = useState<Array<userInterface>>([]);
   useEffect(() => {
     const getAllUsers = async () => {
       try {
-        const admin_token = localStorage.getItem("admin_access_token");
-        const { data } = await axiosInstance.post(
-          "/api/v1/info-admin/all-users",
-          {},
-          { headers: { Authorization: `Bearer ${admin_token}` } }
-        );
+        const storedUsers = localStorage.getItem("users");
+        if (storedUsers) {
+          setUsers(JSON.parse(storedUsers));
+        } else {
+          const admin_token = localStorage.getItem("admin_access_token");
+          const { data } = await axiosInstance.post(
+            "/api/v1/info-admin/all-users",
+            {},
+            { headers: { Authorization: `Bearer ${admin_token}` } }
+          );
 
-        // const normalUsers = data?.users.filter(
-        //   (user: userInterface) => user.isAdmin === false
-        // );
-        setUsers(data?.users);
+          const filteredUsers = data?.users.map((user: any) => ({
+            _id: user.id,
+            username: user.username,
+            email: user.email,
+            phone_number: user.phone_number,
+            createdAt: user.createdAt,
+            isAdmin: user.isAdmin,
+          }));
+
+          setUsers(filteredUsers);
+          localStorage.setItem("users", JSON.stringify(filteredUsers));
+        }
       } catch (error) {
         const err = error as AxiosError;
         const data: any = err?.response?.data;
@@ -63,7 +74,6 @@ const AdminHome: React.FC = () => {
 
     getAllUsers();
   }, []);
-
   const handleDownloadCsv = () => {
     if (!users) {
       toast.error(

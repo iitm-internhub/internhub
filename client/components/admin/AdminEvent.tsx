@@ -32,7 +32,9 @@ const AdminEventPanel = () => {
 
   return (
     <>
-      <Button className="w-full my-2">Add New events</Button>
+      <Link href="/admin/event">
+        <Button className="w-full my-2">Add New events</Button>
+      </Link>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-6 shadow-blue-900 shadow-2xl my-4 p-[0.3em] rounded-sm  backdrop-blur-lg">
         {eventCardList.map((event, index) => (
