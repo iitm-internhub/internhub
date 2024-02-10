@@ -8,10 +8,10 @@ import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
-const AdminRoot = dynamic(() => import("@/components/shared/AdminRoot"), {
+const AdminRoot = dynamic(() => import("@/components/admin/AdminRoot"), {
   loading: Loader,
 });
-const AdminLogin = dynamic(() => import("@/components/shared/AdminLogin"), {
+const AdminLogin = dynamic(() => import("@/components/admin/AdminLogin"), {
   loading: Loader,
 });
 

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import Loader from "./Loader";
+import Loader from "../shared/Loader";
 
 const UsersTable = dynamic(() => import("./UsersTable"), { loading: Loader });
 
@@ -78,6 +78,11 @@ const AdminHome: React.FC = () => {
 
     exportFromJson({ data, fileName, exportType });
   };
+  const [isAdminSortOrder, setIsAdminSortOrder] = useState(true);
+
+  const toggleSortOrder = () => {
+    setIsAdminSortOrder(!isAdminSortOrder);
+  };
 
   return (
     <>
@@ -105,7 +110,7 @@ const AdminHome: React.FC = () => {
             <TableCaption>All the users on Internhub website.</TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead>Role</TableHead>
+                <TableHead onClick={toggleSortOrder}>Role</TableHead>
                 <TableHead>Username</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Phone Number</TableHead>
@@ -113,28 +118,30 @@ const AdminHome: React.FC = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {users?.map((user) => (
-                <UsersTable
-                  key={user._id}
-                  _id={user._id}
-                  username={user?.username}
-                  email={user?.email}
-                  phone_number={user?.phone_number}
-                  createdAt={user?.createdAt}
-                  updatedAt={user?.updatedAt}
-                  isAdmin={user?.isAdmin}
-                />
-              ))}
+              {users
+                ?.sort((a, b) =>
+                  isAdminSortOrder
+                    ? Number(b.isAdmin) - Number(a.isAdmin)
+                    : Number(a.isAdmin) - Number(b.isAdmin)
+                )
+                .map((user) => (
+                  <UsersTable
+                    key={user._id}
+                    _id={user._id}
+                    username={user?.username}
+                    email={user?.email}
+                    phone_number={user?.phone_number}
+                    createdAt={user?.createdAt}
+                    updatedAt={user?.updatedAt}
+                    isAdmin={user?.isAdmin}
+                  />
+                ))}
             </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={4}>Total</TableCell>
-                <TableCell className="text-right">
-                  {users?.length} Users
-                </TableCell>
-              </TableRow>
-            </TableFooter>
           </Table>
+          <div className="my-4 flex ">
+            <p>Total Users</p>
+            <Button className="mx-4 rounded-full"> {users?.length}</Button>
+          </div>
         </>
       )}
     </>

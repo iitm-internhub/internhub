@@ -63,7 +63,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
             </>
           )}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
       </DropdownMenuContent>
     </DropdownMenu>
   );
