@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import Loader from "./Loader";
+import Loader from "../shared/Loader";
 
 import { Button } from "../ui/button";
 import LogoutIcon from "@/public/icons/logout.svg";

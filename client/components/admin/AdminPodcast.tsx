@@ -66,10 +66,13 @@ const AdminPodcast: React.FC = () => {
   ];
 
   return (
-    <section className="grid grid-cols-3 gap-4">
+    <section className="mb-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
       {cards ? (
         cards.map((card) => (
-          <Card className="w-full max-w-sm mx-auto" key={card._id}>
+          <Card
+            className="w-full shadow-lg backdrop-blur-lg shadow-[#ccbb82] dark:shadow-blue-900 max-w-sm mx-auto"
+            key={card._id}
+          >
             <div className="relative">
               <div className="aspect-[16/9] rounded-t-lg overflow-hidden">
                 <Image

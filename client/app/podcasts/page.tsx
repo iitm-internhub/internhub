@@ -50,7 +50,10 @@ const AdminPodcastPanel = () => {
         <></>
       ) : (
         podcasts.map((podcast: podcastInterface) => (
-          <Card key={podcast._id}>
+          <Card
+            className="shadow-lg backdrop-blur-lg shadow-gray-600 dark:shadow-blue-900 "
+            key={podcast._id}
+          >
             <div className="relative -mx-6 sm:px-0 px-4">
               <div className="aspect-[3/1] overflow-hidden rounded-t-xl">
                 <Image
@@ -67,7 +70,11 @@ const AdminPodcastPanel = () => {
                 {/* <div className="absolute inset-0 bg-neutral-700 mix-blend-multiply" /> */}
               </div>
               <div className="absolute inset-x-0 bottom-0 flex items-end px-6 sm:pb-10 pb-6">
-                <Button className="mr-2" size="sm" variant="ghost">
+                <Button
+                  className="mr-2  dark:backdrop-blur-sm"
+                  size="sm"
+                  variant="ghost"
+                >
                   <Image
                     src={PlayIcon}
                     height={50}
@@ -77,12 +84,16 @@ const AdminPodcastPanel = () => {
                   />
                   Play
                 </Button>
-                <Button size="sm" variant="ghost">
+                <Button
+                  size="sm"
+                  className="dark:backdrop-blur-sm"
+                  variant="ghost"
+                >
                   <Image
                     src={DownloadIcon}
                     height={50}
                     width={50}
-                    className="h-4 w-4 mr-2.5 dark:invert"
+                    className="h-4 w-4 mr-2.5 dark:invert "
                     alt="play"
                   />
                   Download
@@ -122,12 +133,6 @@ const AdminPodcastPanel = () => {
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="flex p-6 gap-4">
-              <Button size="sm">Edit</Button>
-              <Button size="sm" variant="outline">
-                Delete
-              </Button>
-            </CardFooter>
           </Card>
         ))
       )}
