@@ -45,9 +45,9 @@ const Header: React.FC = () => {
           </Link>
           <Link
             className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-            href="/contact"
+            href="/podcasts"
           >
-            Contact Us
+            Podcasts
           </Link>
           <Link
             className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
@@ -60,6 +60,12 @@ const Header: React.FC = () => {
             href="/about"
           >
             About
+          </Link>
+          <Link
+            className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+            href="/contact"
+          >
+            Contact
           </Link>
         </nav>
         <div className="flex gap-2 items-center justify-center">

@@ -1,11 +1,19 @@
 "use client";
 
-import AdminLogin from "@/components/shared/AdminLogin";
-import AdminRoot from "@/components/shared/AdminRoot";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import Loader from "@/components/shared/Loader";
+
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+
+const AdminRoot = dynamic(() => import("@/components/shared/AdminRoot"), {
+  loading: Loader,
+});
+const AdminLogin = dynamic(() => import("@/components/shared/AdminLogin"), {
+  loading: Loader,
+});
 
 const Admin = () => {
   const [isAdmin, setIsAdmin] = useState<Boolean>(false);

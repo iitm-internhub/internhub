@@ -1,5 +1,18 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+import Loader from "./Loader";
+
+const UsersTable = dynamic(() => import("./UsersTable"), { loading: Loader });
+
+import axiosInstance from "@/lib/axios-instance";
+import { AxiosError } from "axios";
+
+import toast from "react-hot-toast";
+import exportFromJson from "export-from-json";
+
 import {
   Table,
   TableBody,
@@ -10,14 +23,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import axiosInstance from "@/lib/axios-instance";
-import { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { Badge } from "../ui/badge";
-
-import exportFromJson from "export-from-json";
 import { Button } from "../ui/button";
+
+import DownloadIcon from "@/public/icons/download.svg";
 
 interface userInterface {
   _id: string;
@@ -73,45 +81,62 @@ const AdminHome: React.FC = () => {
 
   return (
     <>
-      <Button className="w-full my-4" onClick={handleDownloadCsv}>
-        Export to CSV
-      </Button>
-      <Table>
-        <TableCaption>All the users on Internhub website.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Role</TableHead>
-            <TableHead>Username</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Phone Number</TableHead>
-            <TableHead className="text-right">Joined On</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {users?.map((user) => (
-            <TableRow
-              key={user._id}
-              className={`${user.isAdmin && "dark:bg-red-700 bg-red-500"}`}
-            >
-              <TableCell>
-                <Badge>{user?.isAdmin ? "admin" : "user"}</Badge>
-              </TableCell>
-              <TableCell className="font-medium">{user?.username}</TableCell>
-              <TableCell>{user?.email}</TableCell>
-              <TableCell>{user?.phone_number}</TableCell>
-              <TableCell className="text-right">
-                {new Date(user?.createdAt).toDateString()}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={4}>Total</TableCell>
-            <TableCell className="text-right">{users?.length} Users</TableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
+      {!users ? (
+        <p className="text-2xl font-medium text-center">No User Found</p>
+      ) : (
+        <>
+          <Button
+            className="mb-4 cursor-pointer"
+            onClick={handleDownloadCsv}
+            asChild
+          >
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-xs">Export to CSV</span>
+              <Image
+                src={DownloadIcon}
+                alt="download_icon"
+                height={50}
+                width={50}
+                className="w-4 invert dark:invert-0"
+              />
+            </div>
+          </Button>
+          <Table>
+            <TableCaption>All the users on Internhub website.</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Role</TableHead>
+                <TableHead>Username</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Phone Number</TableHead>
+                <TableHead className="text-right">Joined On</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {users?.map((user) => (
+                <UsersTable
+                  key={user._id}
+                  _id={user._id}
+                  username={user?.username}
+                  email={user?.email}
+                  phone_number={user?.phone_number}
+                  createdAt={user?.createdAt}
+                  updatedAt={user?.updatedAt}
+                  isAdmin={user?.isAdmin}
+                />
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={4}>Total</TableCell>
+                <TableCell className="text-right">
+                  {users?.length} Users
+                </TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </>
+      )}
     </>
   );
 };

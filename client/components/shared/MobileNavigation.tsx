@@ -39,13 +39,16 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
             <Link href="/events">Events</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/contact">Contact us</Link>
+            <Link href="/podcasts">Podcasts</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Link href="/team">Team</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Link href="/about">About</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/contact">Contact Us</Link>
           </DropdownMenuItem>
 
           {!isLoggedIn && (

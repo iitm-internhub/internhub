@@ -1,13 +1,21 @@
 "use client";
 
-import { useAuth } from "@/components/context/auth";
+import React from "react";
+import dynamic from "next/dynamic";
+import Loader from "@/components/shared/Loader";
+
 import About from "@/components/shared/About";
 import Banner from "@/components/shared/Banner";
 import CurrentOppourtunities from "@/components/shared/CurrentOppourtunities";
-import EventsCarousel from "@/components/shared/EventsCarousel";
 import FAQ from "@/components/shared/FAQ";
 import Testimonials from "@/components/shared/Testimonials";
-import React from "react";
+
+import { useAuth } from "@/components/context/auth";
+
+const EventsCarousel = dynamic(
+  () => import("@/components/shared/EventsCarousel"),
+  { loading: Loader }
+);
 
 const Main = () => {
   const { userId } = useAuth();
