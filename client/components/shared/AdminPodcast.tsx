@@ -13,7 +13,7 @@ const AdminPodcastPanel = () => {
   return (
     <div className="flex gap-4 flex-col">
       <Card>
-        <div className="relative -mx-6 sm:px-0 px-4">
+        <div className="relative sm:px-0 px-4">
           <div className="aspect-[3/1] overflow-hidden rounded-t-xl">
             <Image
               alt="Podcast cover"
