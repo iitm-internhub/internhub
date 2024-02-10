@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 const AddPodcast = () => {
   return (
     <Card className="w-full mx-auto my-auto max-w-3xl">
-      <CardHeader className="space-y-1">
+      <CardHeader className="space-y-1 ">
         <CardTitle>Upload a new episode</CardTitle>
         <CardDescription>
           Fill out the form below to upload a new episode to your podcast.

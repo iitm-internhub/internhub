@@ -20,14 +20,23 @@ const AdminCompanyPanel: React.FC = () => {
       companyJobTItle: "Software Engineer",
       companyJobType: "Hybrid",
       companyJobDate: "February 10, 2024",
+    },{
+      companyTitle: "Company title",
+      companyDescription: "desc...",
+      companyJobTItle: "Software Engineer",
+      companyJobType: "Hybrid",
+      companyJobDate: "February 10, 2024",
     },
   ];
   return (
     <>
+     <Link href="/admin/company" className="flex w-auto">
+        <Button className="w-full my-2">Add New Company</Button>
+      </Link>
+        <Card key="1" className=" grid mx-auto my-auto grid-cols-1 sm:grid-cols-3 gap-4   max-w-sm sm:max-w-fit rounded-xl border">
       {companyCardList.map((company, index) => (
-        <Card key="1" className="w-full max-w-sm  rounded-xl border">
-          <div className="p-6 grid gap-4 shadow-lg dark:shadow-blue-900 backdrop-blur-lg">
-            <div className="flex gap-4 items-center">
+          <div className="p-6 m-4 grid gap-4 shadow-lg dark:shadow-blue-900 backdrop-blur-lg">
+            <div className="flex justify-around gap-4 items-center">
               <Image
                 alt="Company logo"
                 className="rounded-full"
@@ -57,12 +66,18 @@ const AdminCompanyPanel: React.FC = () => {
                 </p>
               </div>
             </div>
-            <Link href="#">
+            <hr />
+           <div className="w-full justify-around flex">
+           <Link href="#">
               <Button size="sm">Read More</Button>
             </Link>
+            <Link href="#">
+              <Button size="sm" className="bg-blue-600">Edit</Button>
+            </Link>
+           </div>
           </div>
-        </Card>
       ))}
+        </Card>
     </>
   );
 };

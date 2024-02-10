@@ -14,11 +14,13 @@ app.listen(PORT, () => {
   console.log(`now listening on PORT: ${PORT}`);
 });
 
+
 const corsOptions = {
   AccessControlAllowOrigin: "*",
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
+
 
 // middlewares
 app.use(express.json());

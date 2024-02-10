@@ -88,10 +88,10 @@ const Login = () => {
                         Email
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                          placeholder="someone@gamil.com"
-                          {...field}
+                      <Input
+               className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                placeholder="someone@gamil.com"
+                  {...field}
                         />
                       </FormControl>
                       <FormMessage />
