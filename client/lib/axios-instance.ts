@@ -4,7 +4,7 @@ import axios from "axios";
 // https://tiny-pig-scrubs.cyclic.app/
 
 const axiosInstance = axios.create({
-  baseURL: "https://tiny-pig-scrubs.cyclic.app/",
+  baseURL: "https:localhost:8080",
   timeout: 5000,
 });
 
