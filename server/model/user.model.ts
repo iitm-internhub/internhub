@@ -6,6 +6,7 @@ export interface UserSchemaInterface {
   email: string;
   password: string;
   phone_number: string;
+  isAdmin: boolean;
   collage_name?: string;
   enrollment_number?: number;
   semester?: string;
@@ -18,6 +19,7 @@ const userSchema: Schema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     phone_number: { type: Number, required: true },
+    isAdmin: { type: Boolean, default: false },
     collage_name: { type: String, required: false },
     enrollment_number: { type: Number, required: false },
     semester: { type: String, required: false },

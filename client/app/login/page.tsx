@@ -49,7 +49,10 @@ const Login = () => {
         toast.success(message);
         router.push("/");
         window.location.href = "/";
+        return;
       }
+
+      toast.error("something went wrong");
     } catch (error) {
       const err = error as AxiosError;
       const data: any = err?.response?.data;

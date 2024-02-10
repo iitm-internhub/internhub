@@ -36,6 +36,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({
                 setUsername(e.target.value);
               }}
               value={username}
+              className="text-white"
             />
           </div>
           <div className="space-y-2">
@@ -49,6 +50,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              className="text-white"
             />
           </div>
           <Button className="w-full" onClick={handleSubmit}>

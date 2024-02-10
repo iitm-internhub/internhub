@@ -49,11 +49,15 @@ const Signup = () => {
       });
 
       if (data?.success && data?.success === true) {
-        const { authToken, message, success } = data;
+        const { authToken, message } = data;
         localStorage.setItem("access_token", authToken);
         toast.success(message);
         router.push("/");
+        window.location.href = "/";
+        return;
       }
+
+      toast.error("something went wrong");
     } catch (error) {
       const err = error as AxiosError;
       const data: any = err.response?.data;
