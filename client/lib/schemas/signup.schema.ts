@@ -7,7 +7,7 @@ const signupFormSchema = z.object({
   phone_number: z.string().min(10, { message: "Must be valid phone number" }),
   email: z
     .string()
-    .min(1, { message: "This field has to be field" })
+    .min(1, { message: "This field has to be filled" })
     .email("This is not a valid email"),
   password: z.string().min(1, { message: "Password cannot be empty" }),
 });
