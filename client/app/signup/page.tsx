@@ -53,7 +53,7 @@ const Signup = () => {
         localStorage.setItem("access_token", authToken);
         toast.success(message);
         router.push("/");
-        window.location.href = "/";
+        // window.location.href = "/";
         return;
       }
 

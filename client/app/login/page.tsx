@@ -23,6 +23,7 @@ import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
+// import { useRouter } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
@@ -47,7 +48,7 @@ const Login = () => {
       if (success == true) {
         localStorage.setItem("access_token", authToken);
         toast.success(message);
-        router.push("/");
+        router.replace("/");
         window.location.href = "/";
         return;
       }

@@ -8,6 +8,8 @@ import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
+import { useRouter } from "next/navigation";
+
 const AdminRoot = dynamic(() => import("@/components/admin/AdminRoot"), {
   loading: Loader,
 });
@@ -19,6 +21,7 @@ const Admin = () => {
   const [isAdmin, setIsAdmin] = useState<Boolean>(false);
   const [username, setUsername] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
+  const router = useRouter();
 
   useEffect(() => {
     const checkIsAuthenticated = () => {
@@ -45,7 +48,8 @@ const Admin = () => {
       if (data?.success) {
         localStorage.setItem("admin_access_token", data?.authToken);
         toast.success(`${data.message}`);
-        location.reload();
+        setIsAdmin(true);
+        return;
       }
       toast.error(`${data.message}`);
     } catch (error) {

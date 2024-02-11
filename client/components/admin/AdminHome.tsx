@@ -42,29 +42,24 @@ const AdminHome: React.FC = () => {
   useEffect(() => {
     const getAllUsers = async () => {
       try {
-        const storedUsers = localStorage.getItem("users");
-        if (storedUsers) {
-          setUsers(JSON.parse(storedUsers));
-        } else {
-          const admin_token = localStorage.getItem("admin_access_token");
-          const { data } = await axiosInstance.post(
-            "/api/v1/info-admin/all-users",
-            {},
-            { headers: { Authorization: `Bearer ${admin_token}` } }
-          );
+        const admin_token = localStorage.getItem("admin_access_token");
+        const { data } = await axiosInstance.post(
+          "/api/v1/info-admin/all-users",
+          {},
+          { headers: { Authorization: `Bearer ${admin_token}` } }
+        );
 
-          const filteredUsers = data?.users.map((user: any) => ({
-            _id: user.id,
-            username: user.username,
-            email: user.email,
-            phone_number: user.phone_number,
-            createdAt: user.createdAt,
-            isAdmin: user.isAdmin,
-          }));
+        const filteredUsers = data?.users.map((user: any) => ({
+          _id: user.id,
+          username: user.username,
+          email: user.email,
+          phone_number: user.phone_number,
+          createdAt: user.createdAt,
+          isAdmin: user.isAdmin,
+        }));
 
-          setUsers(filteredUsers);
-          localStorage.setItem("users", JSON.stringify(filteredUsers));
-        }
+        setUsers(filteredUsers);
+        localStorage.setItem("users", JSON.stringify(filteredUsers));
       } catch (error) {
         const err = error as AxiosError;
         const data: any = err?.response?.data;
@@ -100,7 +95,6 @@ const AdminHome: React.FC = () => {
         <p className="text-2xl font-medium text-center">No User Found</p>
       ) : (
         <>
-        
           <Button
             className="mb-4 cursor-pointer"
             onClick={handleDownloadCsv}
@@ -149,9 +143,14 @@ const AdminHome: React.FC = () => {
                 ))}
             </TableBody>
           </Table>
-          <div className="my-4 flex ">
-            <p>Total Users</p>
-            <Button className="mx-4 rounded-full"> {users?.length}</Button>
+          <div className="my-4">
+            <div className="flex items-center border border-black dark:border-white rounded-md h-fit w-fit sm:px-6 px-4 py-2 gap-2">
+              <p className="font-semibold text-sm sm:text-md">Total Users</p>
+              <p className="font-semibold text-sm sm:text-md">
+                {" "}
+                {users?.length}
+              </p>
+            </div>
           </div>
         </>
       )}

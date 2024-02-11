@@ -4,11 +4,13 @@ import cors from "cors";
 import connectDatabase from "./db/connectDatabase";
 
 import AuthenticationHandler from "./route/authentication.route";
+import PodcastHandler from "./route/podcast.router";
+
 import AdminAuthHandler from "./admin-route/admin.auth.route";
 import AdminInfoHandler from "./admin-route/admin.info.route";
 import AdminEventHandler from "./admin-route/admin.event.route";
-import CompanyEventHandler from './admin-route/admin.company.route'
-import PodcastEventHandler from './admin-route/admin.podcast.route'
+import CompanyEventHandler from "./admin-route/admin.company.route";
+import PodcastEventHandler from "./admin-route/admin.podcast.route";
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
 
@@ -27,6 +29,7 @@ app.use(cors(corsOptions));
 
 // user server routes
 app.use("/api/v1/auth", AuthenticationHandler);
+app.use("/api/v1/podcast", PodcastHandler);
 
 // admin server routes
 app.use("/api/v1/auth-admin", AdminAuthHandler);
