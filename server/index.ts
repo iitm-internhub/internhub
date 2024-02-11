@@ -5,7 +5,7 @@ import connectDatabase from "./db/connectDatabase";
 
 import AuthenticationHandler from "./route/authentication.route";
 import PodcastHandler from "./route/podcast.router";
-
+import EventHandler from "./route/event.router";
 import AdminAuthHandler from "./admin-route/admin.auth.route";
 import AdminInfoHandler from "./admin-route/admin.info.route";
 import AdminEventHandler from "./admin-route/admin.event.route";
@@ -30,7 +30,7 @@ app.use(cors(corsOptions));
 // user server routes
 app.use("/api/v1/auth", AuthenticationHandler);
 app.use("/api/v1/podcast", PodcastHandler);
-
+app.use("/api/v1/event", EventHandler);
 // admin server routes
 app.use("/api/v1/auth-admin", AdminAuthHandler);
 app.use("/api/v1/info-admin", AdminInfoHandler);

@@ -37,7 +37,10 @@ const ProfileButton: React.FC = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href='/profile'>
+            Profile</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>Upcomming Events</DropdownMenuItem>
         </DropdownMenuGroup>
 

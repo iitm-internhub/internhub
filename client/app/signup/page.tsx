@@ -136,7 +136,7 @@ const Signup = () => {
                           Password
                         </FormLabel>
                         <FormControl>
-                          <Input
+                          <Input type="password"
                             className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             placeholder="password"
                             {...field}

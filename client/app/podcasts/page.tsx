@@ -6,7 +6,11 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import axiosInstance from "@/lib/axios-instance";
 import Podcasts from "@/components/shared/Podcasts";
-
+import { Metadata } from "next";
+// export const metadata: Metadata = {
+//   title: "InternHub - Podcasts",
+//   description: "IINTM Placement cell",
+// };
 interface podcastInterface {
   _id: string;
   podcastBanner: string | any;
@@ -53,7 +57,6 @@ const AdminPodcastPanel = () => {
     );
   }
 
-  console.log(podcasts);
 
   return (
     <section className="mx-auto max-w-screen-xl px-10 grid gap-6 my-10">
