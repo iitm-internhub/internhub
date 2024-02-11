@@ -63,7 +63,11 @@ const AdminHome: React.FC = () => {
       } catch (error) {
         const err = error as AxiosError;
         const data: any = err?.response?.data;
-        toast.error(data?.message);
+        if (data) {
+          toast.error(data?.message);
+        } else {
+          toast.error("session timeout: you need to login again");
+        }
       }
     };
 

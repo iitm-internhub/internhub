@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
 import { ThemeProvider } from "@/components/context/theme-provider";
 import Logo from "@/public/icons/InternhubLogo.svg";
+
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "700"],
+});
+const noto_sans = Noto_Sans({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "700"],
+});
 
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/components/context/auth";
@@ -22,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <ThemeProvider attribute="class" defaultTheme="system">
           <Toaster />
           <AuthProvider>

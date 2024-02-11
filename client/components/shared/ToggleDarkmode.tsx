@@ -12,6 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import DarkIcon from "@/public/icons/dark.svg";
+import LightIcon from "@/public/icons/light.svg";
+import SystemIcon from "@/public/icons/system.svg";
+import Image from "next/image";
+
 const DarkmodeToggle: React.FC = () => {
   const { setTheme } = useTheme();
 
@@ -25,14 +30,41 @@ const DarkmodeToggle: React.FC = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
+        <DropdownMenuItem onClick={() => setTheme("light")} asChild>
+          <div className="flex items-center justify-between">
+            <p>Light</p>
+            <Image
+              alt="light"
+              src={LightIcon}
+              height={1000}
+              width={1000}
+              className="w-4 h-4"
+            />
+          </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
+        <DropdownMenuItem onClick={() => setTheme("dark")} asChild>
+          <div className="flex items-center justify-between">
+            <p>Dark</p>
+            <Image
+              alt="dark"
+              src={DarkIcon}
+              height={1000}
+              width={1000}
+              className="w-4 h-4"
+            />
+          </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
+        <DropdownMenuItem onClick={() => setTheme("system")} asChild>
+          <div className="flex items-center justify-between">
+            <p>System</p>
+            <Image
+              alt="system"
+              src={SystemIcon}
+              height={1000}
+              width={1000}
+              className="w-4 h-4"
+            />
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

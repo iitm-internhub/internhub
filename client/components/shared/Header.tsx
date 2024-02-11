@@ -22,8 +22,8 @@ const Header: React.FC = () => {
           <Image
             src={logo}
             alt="internhub_logo"
-            height={200}
-            width={200}
+            height={1000}
+            width={1000}
             className="rounded-full sm:h-8 sm:w-8 h-6 w-6"
           />
           <span className="ml-2 sm:text-lg text-sm font-semibold">
@@ -79,10 +79,10 @@ const Header: React.FC = () => {
             </>
           ) : (
             <div className="hidden md:flex gap-2">
-              <Button asChild>
+              <Button asChild size="sm">
                 <Link href="/signup">Signup</Link>
               </Button>
-              <Button asChild>
+              <Button asChild size="sm">
                 <Link href="/login">Login</Link>
               </Button>
             </div>

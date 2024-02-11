@@ -1,5 +1,6 @@
 import React from "react";
 import Suitcase from "@/public/icons/suitcase.svg";
+import logo from "@/public/images/logo-blue.png";
 import Image from "next/image";
 
 const About: React.FC = () => {
@@ -22,9 +23,9 @@ const About: React.FC = () => {
           </div>
           <div className="flex items-center justify-center">
             <Image
-              alt="suitcase"
-              src={Suitcase}
-              className="w-24 h-24 text-gray-900 dark:invert"
+              alt="logo"
+              src={logo}
+              className="text-gray-900 rounded-full md:h-56 md:w-56 h-32 w-32"
             />
           </div>
         </div>

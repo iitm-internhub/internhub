@@ -19,18 +19,18 @@ import toast from "react-hot-toast";
 import axiosInstance from "@/lib/axios-instance";
 
 import Loader from "../shared/Loader";
-interface CompanyInterface{
-  id:string,
+interface CompanyInterface {
+  id: string;
   companyName: string;
   companyDescription: string;
-  companyJobTitle:string;
-  companyJobDescription:string;
-  companyJobType:string;
+  companyJobTitle: string;
+  companyJobDescription: string;
+  companyJobType: string;
   companyJobDate: Date;
   companyLocation: string;
   companyLogo: string;
-  companyBanner:string;
-  companyJobRegistrationLink:string;
+  companyBanner: string;
+  companyJobRegistrationLink: string;
 }
 const UPLOADCARE_BASE_URL = "https://ucarecdn.com/";
 
@@ -99,16 +99,16 @@ const AdminCompanyPanel: React.FC = () => {
               <div className="relative">
                 <div className="aspect-[16/9] rounded-t-lg overflow-hidden">
                   <Image
-                  alt="company cover"
-                  height={337}
-                  src={`${UPLOADCARE_BASE_URL}${company.companyLogo}/`}
-                  style={{
-                    aspectRatio: "600/337",
-                    objectFit: "cover",
-                  }}
-                  width={600}
-                  className="backdrop-brightness-50 opacity-70"
-                />
+                    alt="company cover"
+                    height={337}
+                    src={`${UPLOADCARE_BASE_URL}${company.companyBanner}/`}
+                    style={{
+                      aspectRatio: "600/337",
+                      objectFit: "cover",
+                    }}
+                    width={600}
+                    className="backdrop-brightness-50"
+                  />
                 </div>
               </div>
               <CardContent className="p-6 max-h-[16vh] min-h-[16vh] overflow-auto no-scrollbar">
@@ -117,12 +117,13 @@ const AdminCompanyPanel: React.FC = () => {
                     {company.companyName}
                   </h3>
                   <p className="text-sm text-gray-500">
-                   <span>Position:&nbsp;
-                     {company.companyJobTitle} 
+                    <span>
+                      Position:&nbsp;
+                      {company.companyJobTitle}
                     </span>
-                  <p className="text-sm text-gray-500">
-                    {company.companyJobDescription}
-                  </p>
+                    <p className="text-sm text-gray-500">
+                      {company.companyJobDescription}
+                    </p>
                   </p>
                 </div>
               </CardContent>

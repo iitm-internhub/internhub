@@ -108,10 +108,9 @@ const AdminEventPanel = () => {
                       objectFit: "cover",
                     }}
                     width="600"
-                    className="backdrop-brightness-50 opacity-70"
+                    className="backdrop-brightness-50"
                   />
                 </div>
-              
               </div>
               <CardContent className="p-6 max-h-[16vh] min-h-[16vh] overflow-auto no-scrollbar">
                 <div className="grid gap-2">
