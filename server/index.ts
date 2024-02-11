@@ -7,7 +7,7 @@ import AuthenticationHandler from "./route/authentication.route";
 import AdminAuthHandler from "./admin-route/admin.auth.route";
 import AdminInfoHandler from "./admin-route/admin.info.route";
 import AdminEventHandler from "./admin-route/admin.event.route";
-
+import CompanyEventHandler from './admin-route/admin.company.route'
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
 
@@ -16,7 +16,6 @@ app.listen(PORT, () => {
 });
 
 const corsOptions = {
-  AccessControlAllowOrigin: "*",
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
@@ -32,6 +31,8 @@ app.use("/api/v1/auth", AuthenticationHandler);
 app.use("/api/v1/auth-admin", AdminAuthHandler);
 app.use("/api/v1/info-admin", AdminInfoHandler);
 app.use("/api/v1/event-admin", AdminEventHandler);
+app.use("/api/v1/company-admin", CompanyEventHandler);
+
 1;
 connectDatabase();
 
