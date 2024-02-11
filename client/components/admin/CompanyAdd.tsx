@@ -43,30 +43,47 @@ import {
 LR.registerBlocks(LR);
 
 const AddCompany = () => {
-  const [companyLogo, setCompanyLogo] = useState<string[]>([]);
-  const ctxProviderRef = useRef<
+  const [companyLogo, setCompanyLogo] = useState<string | null>();
+  const [companyBanner, setCompanyBanner] = useState<string | null>();
+  const ctxLogoProviderRef = useRef<
     typeof LR.UploadCtxProvider.prototype & UploadCtxProvider
   >(null);
+  const ctxBannerProviderRef = useRef<
+    typeof LR.UploadCtxProvider.prototype & UploadCtxProvider
+  >(null);
+
   const router = useRouter();
 
   useEffect(() => {
-    const handleUpload = (e: CustomEvent<LR.OutputFileEntry>) => {
+    const handleLogoUpload = (e: CustomEvent<LR.OutputFileEntry>) => {
       if (e.detail) {
-        setCompanyLogo(
-          (prev) => [...prev, e.detail.uuid].filter(Boolean) as string[]
-        );
+        setCompanyLogo(e.detail.uuid);
       }
     };
-
-    ctxProviderRef.current?.addEventListener(
-      "file-upload-success",
-      handleUpload
-    );
-    const ctxProvRef = ctxProviderRef.current;
-    return () => {
-      ctxProvRef?.removeEventListener("file-upload-success", handleUpload);
+    const handleBannerUpload = (e: CustomEvent<LR.OutputFileEntry>) => {
+      if (e.detail) {
+        setCompanyBanner(e.detail.uuid);
+      }
     };
-  }, [companyLogo]);
+    ctxLogoProviderRef.current?.addEventListener(
+      "file-upload-success",
+      handleLogoUpload
+    );
+    ctxBannerProviderRef.current?.addEventListener(
+      "file-upload-success",
+      handleBannerUpload
+    );
+    const ctxProvRef = ctxLogoProviderRef.current;
+    const ctxBannerProvRef = ctxBannerProviderRef.current;
+    return () => {
+      ctxProvRef?.removeEventListener("file-upload-success", handleLogoUpload);
+      ctxBannerProvRef?.removeEventListener(
+        "file-upload-success",
+        handleBannerUpload
+      );
+    };
+  }, [companyLogo, companyBanner]);
+
   const form = useForm<z.infer<typeof companyFormSchema>>({
     resolver: zodResolver(companyFormSchema),
     defaultValues: {
@@ -78,8 +95,6 @@ const AddCompany = () => {
       companyJobDate: new Date(),
       companyLocation: "",
       companyJobRegistrationLink: "",
-      companyLogo: { type: "png", size: 1000 },
-      companyBanner: { type: "png", size: 1000 },
     },
   });
   const onSubmit = async (values: z.infer<typeof companyFormSchema>) => {
@@ -94,12 +109,10 @@ const AddCompany = () => {
         companyJobDate,
         companyLocation,
         companyJobRegistrationLink,
-        companyLogo,
-        companyBanner,
       } = values;
 
-      if (companyLogo.type.length === 0) {
-        toast.error("upload atleast one image");
+      if (!companyLogo || !companyBanner) {
+        toast.error("upload banner and logo both");
         return;
       }
 
@@ -124,7 +137,7 @@ const AddCompany = () => {
           },
         }
       );
-
+console.log(data)
       if (data?.success) {
         toast.success(data?.message);
         router.push("/");
@@ -264,20 +277,20 @@ const AddCompany = () => {
             />
           </div>
           <div className="space-y-2">
-              <FormField
-                control={form.control}
-                name="companyJobRegistrationLink"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Registration URL</FormLabel>
-                    <FormControl>
-                      <Input placeholder="enter registration url" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              control={form.control}
+              name="companyJobRegistrationLink"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Registration URL</FormLabel>
+                  <FormControl>
+                    <Input placeholder="enter registration url" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <div className="space-y-2">
             <FormField
               control={form.control}
@@ -321,7 +334,7 @@ const AddCompany = () => {
               />
 
               <lr-upload-ctx-provider
-                ref={ctxProviderRef}
+                ref={ctxLogoProviderRef}
                 ctx-name="my-uploader"
               />
             </div>
@@ -329,15 +342,18 @@ const AddCompany = () => {
           <div className="space-y-2">
             <Label>Banner</Label>
             <div>
-              <lr-config ctx-name="my-uploader" pubkey="5c8ef136b5cc8e13744b" />
+              <lr-config
+                ctx-name="my-banner-uploader"
+                pubkey="5c8ef136b5cc8e13744b"
+              />
               <lr-file-uploader-regular
-                ctx-name="my-uploader"
+                ctx-name="my-banner-uploader"
                 css-src={`https://cdn.jsdelivr.net/npm/@uploadcare/blocks@${LR.PACKAGE_VERSION}/web/lr-file-uploader-regular.min.css`}
               />
 
               <lr-upload-ctx-provider
-                ref={ctxProviderRef}
-                ctx-name="my-uploader"
+                ref={ctxBannerProviderRef}
+                ctx-name="my-banner-uploader"
               />
             </div>
           </div>
