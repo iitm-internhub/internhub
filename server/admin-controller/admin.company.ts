@@ -13,11 +13,10 @@ const createCompanyDetails = async (req: Request, res: Response) => {
       companyJobDate,
       companyLocation,
       companyJobRegistrationLink,
-      companyImageIds,
-      companyBannerID
+      companyLogo,
+      companyBanner
     }: companySchemaInterface = req.body;
 
-    console.log(req.body);
 
     if (
         !companyName||
@@ -28,21 +27,10 @@ const createCompanyDetails = async (req: Request, res: Response) => {
         !companyJobDate||
         !companyLocation||
         !companyJobRegistrationLink||
-        !companyImageIds||
-        !companyBannerID
+        !companyLogo||
+        !companyBanner
     ) {
-      console.log(
-        companyName,
-        companyDescription,
-        companyJobTitle,
-        companyJobDescription,
-        companyJobType,
-        companyJobDate,
-        companyLocation,
-        companyJobRegistrationLink,
-        companyImageIds,
-        companyBannerID
-      );
+      
 
       return res.status(400).json({
         success: false,
@@ -59,8 +47,8 @@ const createCompanyDetails = async (req: Request, res: Response) => {
         companyJobDate,
         companyLocation,
         companyJobRegistrationLink,
-        companyImageIds,
-        companyBannerID
+        companyLogo,
+        companyBanner
     });
 
     const companyCreated = await newCompany.save();
@@ -68,7 +56,7 @@ const createCompanyDetails = async (req: Request, res: Response) => {
     if (Object.keys(companyCreated).length === 0) {
       return res.status(500).json({
         success: false,
-        message: "some went wrong",
+        message: "something went wrong",
       });
     }
 

@@ -98,7 +98,6 @@ const AddCompany = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof companyFormSchema>) => {
-    console.log(values, companyLogo);
     try {
       const {
         companyName,
@@ -137,7 +136,6 @@ const AddCompany = () => {
           },
         }
       );
-console.log(data)
       if (data?.success) {
         toast.success(data?.message);
         router.push("/");

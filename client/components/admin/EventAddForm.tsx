@@ -73,7 +73,6 @@ const EventAddForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof eventFormSchema>) => {
-    console.log(values, eventImageIds);
     try {
       const {
         eventTitle,

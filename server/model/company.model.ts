@@ -8,8 +8,8 @@ export interface companySchemaInterface {
   companyJobType:string;
   companyJobDate: Date;
   companyLocation: string;
-  companyImageIds: Array<string>;
-  companyBannerID:string;
+  companyLogo: string;
+  companyBanner:string;
   companyJobRegistrationLink:string;
 }
 
@@ -23,8 +23,8 @@ const companySchema: Schema = new mongoose.Schema(
     companyJobDate: { type: Date, required: true },
     companyLocation: { type: String, required: true },
     companyJobRegistrationLink: { type: String, required: true },
-    companyImageIds: { type: Array<String>, required: true },
-    companyBannerID:{type: String, min: 4, required: true},
+    companyLogo: { type: String, required: true },
+    companyBanner:{type: String, min: 4, required: true},
   },
   {
     timestamps: true,

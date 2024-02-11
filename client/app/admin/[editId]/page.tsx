@@ -4,7 +4,6 @@ import AddEvent from "@/components/admin/EventAddForm";
 
 const EditPage = ({ params }: { params: { editId: string } }) => {
   const editId = params.editId;
-  console.log(params);
   switch (editId) {
     case "company":
       return <AddCompany />;

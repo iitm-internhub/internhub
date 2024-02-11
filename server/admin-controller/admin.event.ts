@@ -14,7 +14,6 @@ const createEventDetails = async (req: Request, res: Response) => {
       eventImageIds,
     }: EventSchemaInterface = req.body;
 
-    console.log(req.body);
 
     if (
       !eventTitle ||
@@ -25,15 +24,7 @@ const createEventDetails = async (req: Request, res: Response) => {
       !eventSpeakers ||
       !eventImageIds
     ) {
-      console.log(
-        eventTitle,
-        eventDate,
-        eventDescription,
-        eventLocation,
-        eventRegistrationURL,
-        eventSpeakers,
-        eventImageIds
-      );
+     
 
       return res.status(400).json({
         success: false,
@@ -56,7 +47,7 @@ const createEventDetails = async (req: Request, res: Response) => {
     if (Object.keys(eventCreated).length === 0) {
       return res.status(500).json({
         success: false,
-        message: "some went wrong",
+        message: "something went wrong",
       });
     }
 
