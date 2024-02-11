@@ -155,7 +155,7 @@ const EventAddForm = () => {
                       <FormControl>
                         <Textarea
                           className="min-h-[128px] resize-none"
-                          placeholder="some title"
+                          placeholder="event Description for readers"
                           {...field}
                         />
                       </FormControl>

@@ -91,10 +91,10 @@ const AdminEventPanel = () => {
           </Link>
         </p>
       ) : (
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-6">
+        <div className="grid sm:grid-cols-2 mb-4 md:grid-cols-3 grid-cols-1 gap-6">
           {events.map((event) => (
             <Card
-              className="w-full shadow-lg backdrop-blur-lg shadow-[#ccbb82] dark:shadow-blue-900 max-w-sm mx-auto"
+              className="w-full  shadow-lg backdrop-blur-lg shadow-[#ccbb82] dark:shadow-blue-900 max-w-sm mx-auto"
               key={event.id}
             >
               <div className="relative">
@@ -111,46 +111,9 @@ const AdminEventPanel = () => {
                     className="backdrop-brightness-50 opacity-70"
                   />
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Button size="sm" variant="ghost" asChild>
-                    <div>
-                      <Image
-                        alt="podcast_banner"
-                        src={DownloadIcon}
-                        height={50}
-                        width={50}
-                        className="h-4 w-4 dark:invert"
-                      />
-                      <span className="sr-only">Download</span>
-                    </div>
-                  </Button>
-                  <Button className="mx-2" size="sm" variant="ghost" asChild>
-                    <div>
-                      <Image
-                        src={PlayIcon}
-                        alt="play_icon"
-                        className="h-6 w-6 dark:invert"
-                        height={50}
-                        width={50}
-                      />
-                      <span className="sr-only">Play</span>
-                    </div>
-                  </Button>
-                  <Button size="sm" variant="ghost" asChild>
-                    <div>
-                      <Image
-                        alt="plus_icon"
-                        src={PlusIcon}
-                        height={50}
-                        width={50}
-                        className="h-4 w-4 dark:invert"
-                      />
-                      <span className="sr-only">Add to library</span>
-                    </div>
-                  </Button>
-                </div>
+              
               </div>
-              <CardContent className="p-6">
+              <CardContent className="p-6 max-h-[16vh] min-h-[16vh] overflow-auto no-scrollbar">
                 <div className="grid gap-2">
                   <h3 className="text-base font-bold leading-none">
                     {event.eventTitle}

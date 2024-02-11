@@ -1,101 +1,353 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import eventFormSchema from "@/lib/schemas/events.schema";
+import { Textarea } from "../ui/textarea";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Image from "next/image";
+
+import * as LR from "@uploadcare/blocks";
+
+import CalendarIcon from "@/public/icons/calendar.svg";
+import { Label } from "../ui/label";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import axiosInstance from "@/lib/axios-instance";
+
+import { useRouter } from "next/navigation";
+import companyFormSchema from "@/lib/schemas/company.schema";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+
+LR.registerBlocks(LR);
 
 const AddCompany = () => {
-  return (
-    <div
-      key="1"
-      className="mx-auto max-w-3xl space-y-8 shadow-lg backdrop-blur=lg p-3 m-3"
-    >
-      <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Upload Company Information</h1>
-        <p className="text-gray-500 dark:text-gray-400">
-          Fill in the details below
-        </p>
-      </div>
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="company-name">Company Name</Label>
-          <Input id="company-name" placeholder="Acme Inc" required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="location">Location</Label>
-          <Input id="location" placeholder="New York, NY" required />
-        </div>
-        <div className="space-y-2">
-          <fieldset className="space-y-2">
-            <legend className="text-sm font-medium leading-none">
-              Job Type
-            </legend>
-            <div className="relative">
-              <select
-                className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:border-blue-500 focus:bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300"
-                id="job-type"
-              >
-                <option value="remote">Remote</option>
-                <option value="onsite">On-site</option>
-                <option value="hybrid">Hybrid</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
-                <svg
-                  className="h-4 w-4 fill-current"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M6.293 7.293a1 1 0 011.414 0L10 10.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-          </fieldset>
-        </div>
+  const [companyLogo, setCompanyLogo] = useState<string[]>([]);
+  const ctxProviderRef = useRef<
+    typeof LR.UploadCtxProvider.prototype & UploadCtxProvider
+  >(null);
+  const router = useRouter();
 
-        <div className="space-y-2">
-          <Label htmlFor="job-title">Job Title</Label>
-          <Input id="job-title" placeholder="Software Engineer" required />
+  useEffect(() => {
+    const handleUpload = (e: CustomEvent<LR.OutputFileEntry>) => {
+      if (e.detail) {
+        setCompanyLogo(
+          (prev) => [...prev, e.detail.uuid].filter(Boolean) as string[]
+        );
+      }
+    };
+
+    ctxProviderRef.current?.addEventListener(
+      "file-upload-success",
+      handleUpload
+    );
+    const ctxProvRef = ctxProviderRef.current;
+    return () => {
+      ctxProvRef?.removeEventListener("file-upload-success", handleUpload);
+    };
+  }, [companyLogo]);
+  const form = useForm<z.infer<typeof companyFormSchema>>({
+    resolver: zodResolver(companyFormSchema),
+    defaultValues: {
+      companyName: "",
+      companyDescription: "",
+      companyJobTitle: "",
+      companyJobDescription: "",
+      companyJobType: "Remote",
+      companyJobDate: new Date(),
+      companyLocation: "",
+      companyJobRegistrationLink: "",
+      companyLogo: { type: "png", size: 1000 },
+      companyBanner: { type: "png", size: 1000 },
+    },
+  });
+  const onSubmit = async (values: z.infer<typeof companyFormSchema>) => {
+    console.log(values, companyLogo);
+    try {
+      const {
+        companyName,
+        companyDescription,
+        companyJobTitle,
+        companyJobDescription,
+        companyJobType,
+        companyJobDate,
+        companyLocation,
+        companyJobRegistrationLink,
+        companyLogo,
+        companyBanner,
+      } = values;
+
+      if (companyLogo.type.length === 0) {
+        toast.error("upload atleast one image");
+        return;
+      }
+
+      const token = localStorage.getItem("admin_access_token");
+      const { data } = await axiosInstance.post(
+        "/api/v1/company-admin/create",
+        {
+          companyName,
+          companyDescription,
+          companyJobTitle,
+          companyJobDescription,
+          companyJobType,
+          companyJobDate,
+          companyLocation,
+          companyJobRegistrationLink,
+          companyLogo,
+          companyBanner,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (data?.success) {
+        toast.success(data?.message);
+        router.push("/");
+        window.location.href = "/admin";
+        return;
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      const data: any = err?.response?.data;
+      toast.error(data?.message);
+    }
+  };
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mx-auto max-w-3xl space-y-8 shadow-lg backdrop-blur-lg p-3 rounded-md m-3"
+      >
+        <div className="space-y-2 text-center">
+          <h1 className="text-3xl font-bold">Upload Company Information</h1>
+          <p className="text-gray-500 dark:text-gray-400">
+            Fill in the details below
+          </p>
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="location">Job Description</Label>
-          <Input
-            id="location"
-            placeholder="Require an adept SE who can handle..."
-            required
-          />
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="companyName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="some title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="companyDescription"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      className="min-h-[128px] resize-none"
+                      placeholder="Company description for readers"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="companyLocation"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company Location</FormLabel>
+                  <FormControl>
+                    <Input placeholder="City/State/zip" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="companyJobType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Job Type</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    {...field}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a verified email to display" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Remote">Remote</SelectItem>
+                      <SelectItem value="On-Site">On-Site</SelectItem>
+                      <SelectItem value="Hybrid">Hybrid</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="companyJobTitle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Job Title</FormLabel>
+                  <FormControl>
+                    <Input placeholder="some title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="companyJobDescription"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Job Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      className="min-h-[128px] resize-none"
+                      placeholder="Job description in detal given by company"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="space-y-2">
+              <FormField
+                control={form.control}
+                name="companyJobRegistrationLink"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Registration URL</FormLabel>
+                    <FormControl>
+                      <Input placeholder="enter registration url" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="companyJobDate"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Date</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center justify-between h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring  text-black cursor-pointer">
+                      <DatePicker
+                        selected={field.value}
+                        onChange={(date: Date) => field.onChange(date)}
+                        showTimeSelect
+                        timeInputLabel="Time:"
+                        dateFormat="MM/dd/yyyy h:mm aa"
+                        wrapperClassName="datePicker"
+                        className="w-full cursor-pointer"
+                      />
+
+                      <Image
+                        src={CalendarIcon}
+                        alt="calendar"
+                        width={24}
+                        height={24}
+                        className="h-4 w-4"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="space-y-2 ">
+            <Label>Logo</Label>
+            <div>
+              <lr-config ctx-name="my-uploader" pubkey="5c8ef136b5cc8e13744b" />
+              <lr-file-uploader-regular
+                ctx-name="my-uploader"
+                css-src={`https://cdn.jsdelivr.net/npm/@uploadcare/blocks@${LR.PACKAGE_VERSION}/web/lr-file-uploader-regular.min.css`}
+              />
+
+              <lr-upload-ctx-provider
+                ref={ctxProviderRef}
+                ctx-name="my-uploader"
+              />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label>Banner</Label>
+            <div>
+              <lr-config ctx-name="my-uploader" pubkey="5c8ef136b5cc8e13744b" />
+              <lr-file-uploader-regular
+                ctx-name="my-uploader"
+                css-src={`https://cdn.jsdelivr.net/npm/@uploadcare/blocks@${LR.PACKAGE_VERSION}/web/lr-file-uploader-regular.min.css`}
+              />
+
+              <lr-upload-ctx-provider
+                ref={ctxProviderRef}
+                ctx-name="my-uploader"
+              />
+            </div>
+          </div>
+          <div className="flex gap-2.5">
+            <Button variant="outline">Cancel</Button>
+            <Button>Save</Button>
+          </div>
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="company-description">Company Description</Label>
-          <Textarea
-            id="company-description"
-            placeholder="Enter a brief description of the company"
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="specialized-field">Specialized Field</Label>
-          <Input id="specialized-field" placeholder="e.g. FinTech" required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="date">Date</Label>
-          <Input id="date" required type="date" />
-        </div>
-        <div className="space-y-2">
-          <Label>Logo Image Upload</Label>
-          <Input accept="image/*" id="logo" required type="file" />
-        </div>
-        <div className="space-y-2">
-          <Label>Banner Image Upload</Label>
-          <Input accept="image/*" id="banner" required type="file" />
-        </div>
-        <div className="space-y-2">
-          <Button type="submit">Submit</Button>
-        </div>
-      </div>
-    </div>
+      </form>
+    </Form>
   );
 };
 
