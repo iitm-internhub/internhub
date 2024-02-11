@@ -1,6 +1,6 @@
 import AddCompany from "@/components/admin/CompanyAdd";
-import AddPodcast from "@/components/admin/PodcastAdd";
-import AddEvent from "@/components/admin/EventAdd";
+import AddPodcast from "@/components/admin/PodcastAddForm";
+import AddEvent from "@/components/admin/EventAddForm";
 
 const EditPage = ({ params }: { params: { editId: string } }) => {
   const editId = params.editId;

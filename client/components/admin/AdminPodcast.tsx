@@ -68,10 +68,10 @@ const AdminPodcast: React.FC = () => {
 
   return (
     <>
-      <Link href="/admin/podcast" className="flex w-auto">
-        <Button className="w-full my-2">Upload New Podcast</Button>
+      <Link href="/admin/podcast" className="">
+        <Button className="my-2 mx-2">Upload New Podcast</Button>
       </Link>
-      <section className="mb-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <section className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cards ? (
           cards.map((card) => (
             <Card

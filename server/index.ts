@@ -6,6 +6,7 @@ import connectDatabase from "./db/connectDatabase";
 import AuthenticationHandler from "./route/authentication.route";
 import AdminAuthHandler from "./admin-route/admin.auth.route";
 import AdminInfoHandler from "./admin-route/admin.info.route";
+import AdminEventHandler from "./admin-route/admin.event.route";
 
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
@@ -30,7 +31,8 @@ app.use("/api/v1/auth", AuthenticationHandler);
 // admin server routes
 app.use("/api/v1/auth-admin", AdminAuthHandler);
 app.use("/api/v1/info-admin", AdminInfoHandler);
-
+app.use("/api/v1/event-admin", AdminEventHandler);
+1;
 connectDatabase();
 
 app.get("/", (req: Request, res: Response) => {

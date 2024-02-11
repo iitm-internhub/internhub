@@ -25,6 +25,11 @@ const protect_admin = async (
         message: "unauthorized: invalid token",
       });
     }
+  } else {
+    return res.status(401).json({
+      success: false,
+      message: "unauthorized: token not provided",
+    });
   }
 };
 
