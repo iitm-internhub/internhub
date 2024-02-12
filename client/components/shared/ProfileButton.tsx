@@ -58,7 +58,7 @@ const ProfileButton: React.FC = () => {
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <div className="flex items-center justify-between">
-              <p>Upcomming Events</p>
+              <p>Your Biz</p>
               <Image
                 src={UpcommingEventIcon}
                 alt="event_icon"
@@ -73,10 +73,10 @@ const ProfileButton: React.FC = () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <div className="flex items-center justify-between">
-            <p>Settings</p>
+            <p>Support</p>
             <Image
-              src={SettingsIcon}
-              alt="settings_icon"
+              src={SupportIcon}
+              alt="support_icon"
               height={1000}
               width={1000}
               className="h-4 w-4"
@@ -85,10 +85,10 @@ const ProfileButton: React.FC = () => {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <div className="flex items-center justify-between">
-            <p>Support</p>
+            <p>Settings</p>
             <Image
-              src={SupportIcon}
-              alt="support_icon"
+              src={SettingsIcon}
+              alt="settings_icon"
               height={1000}
               width={1000}
               className="h-4 w-4"

@@ -18,6 +18,8 @@ import PodcastsIcon from "@/public/icons/podcast-2.svg";
 import TeamIcon from "@/public/icons/team.svg";
 import AboutIcon from "@/public/icons/about.svg";
 import ContactIcon from "@/public/icons/contact.svg";
+import SignupIcon from "@/public/icons/signup.svg";
+import LoginIcon from "@/public/icons/login.svg";
 
 interface MobileNavigationProps {
   isLoggedIn: boolean;
@@ -36,12 +38,12 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Naviagate</DropdownMenuLabel>
+        <DropdownMenuLabel>Navigate to</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <div className="flex items-center justify-between">
-              <Link href="/">Home</Link>
+            <Link href="/" className="flex items-center justify-between">
+              <p>Home</p>
               <Image
                 src={HomeIcon}
                 alt="home_icon"
@@ -49,11 +51,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
                 width={1000}
                 className="h-4 w-4"
               />
-            </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <div className="flex items-center justify-between">
-              <Link href="/events">Events</Link>
+            <Link href="/events" className="flex items-center justify-between">
+              <p>Events</p>
               <Image
                 src={EventsIcon}
                 alt="event_icon"
@@ -61,11 +63,14 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
                 width={1000}
                 className="h-4 w-4"
               />
-            </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <div className="flex items-center justify-between">
-              <Link href="/podcasts">Podcasts</Link>
+            <Link
+              href="/podcasts"
+              className="flex items-center justify-between"
+            >
+              <p>Podcasts</p>
               <Image
                 src={PodcastsIcon}
                 alt="podcast_icon"
@@ -73,11 +78,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
                 width={1000}
                 className="h-4 w-4"
               />
-            </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <div className="flex items-center justify-between">
-              <Link href="/team">Team</Link>
+            <Link href="/team" className="flex items-center justify-between">
+              <p>Team</p>
               <Image
                 src={TeamIcon}
                 alt="team_icon"
@@ -85,11 +90,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
                 width={1000}
                 className="h-4 w-4"
               />
-            </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <div className="flex items-center justify-between">
-              <Link href="/about">About</Link>
+            <Link href="/about" className="flex items-center justify-between">
+              <p>About</p>
               <Image
                 src={AboutIcon}
                 alt="about_icon"
@@ -97,11 +102,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
                 width={1000}
                 className="h-4 w-4"
               />
-            </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <div className="flex items-center justify-between">
-              <Link href="/contact">Contact US</Link>
+            <Link href="/contact" className="flex items-center justify-between">
+              <p>Contact US</p>
               <Image
                 src={ContactIcon}
                 alt="profile_icon"
@@ -109,17 +114,41 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
                 width={1000}
                 className="h-4 w-4"
               />
-            </div>
+            </Link>
           </DropdownMenuItem>
 
           {!isLoggedIn && (
             <>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href="/signup">Sign Up</Link>
+                <Link
+                  href="/signup"
+                  className="flex items-center justify-between bg-green-600"
+                >
+                  <p>Signup</p>
+                  <Image
+                    src={SignupIcon}
+                    alt="signup_icon"
+                    height={1000}
+                    width={1000}
+                    className="h-4 w-4"
+                  />
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/login">Login</Link>
+              <DropdownMenuItem asChild className="mt-1">
+                <Link
+                  href="/login"
+                  className="flex items-center justify-between bg-green-600"
+                >
+                  <p>Login</p>
+                  <Image
+                    src={LoginIcon}
+                    alt="login_icon"
+                    height={1000}
+                    width={1000}
+                    className="h-4 w-4 dark:invert"
+                  />
+                </Link>
               </DropdownMenuItem>
             </>
           )}

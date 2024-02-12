@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
-import Loader from "../shared/Loader";
 
-const UsersTable = dynamic(() => import("./UsersTable"), { loading: Loader });
+import UsersTable from "./UsersTable";
 
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
@@ -17,8 +15,6 @@ import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -26,6 +22,7 @@ import {
 import { Button } from "../ui/button";
 
 import DownloadIcon from "@/public/icons/download.svg";
+import Loader from "../shared/Loader";
 
 interface userInterface {
   _id: string;
@@ -39,9 +36,15 @@ interface userInterface {
 
 const AdminHome: React.FC = () => {
   const [users, setUsers] = useState<Array<userInterface>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isAdminSortOrder, setIsAdminSortOrder] = useState(true);
+  const [refresh, setRefresh] = useState<number>(0);
+  const totalUsers = useMemo(() => users.length, [users]);
+
   useEffect(() => {
     const getAllUsers = async () => {
       try {
+        setIsLoading(true);
         const admin_token = localStorage.getItem("admin_access_token");
         const { data } = await axiosInstance.post(
           "/api/v1/info-admin/all-users",
@@ -68,11 +71,14 @@ const AdminHome: React.FC = () => {
         } else {
           toast.error("session timeout: you need to login again");
         }
+      } finally {
+        setIsLoading(false);
       }
     };
 
     getAllUsers();
-  }, []);
+  }, [refresh]);
+
   const handleDownloadCsv = () => {
     if (!users) {
       toast.error(
@@ -87,11 +93,23 @@ const AdminHome: React.FC = () => {
 
     exportFromJson({ data, fileName, exportType });
   };
-  const [isAdminSortOrder, setIsAdminSortOrder] = useState(true);
+
+  const handleRefresh = () => {
+    setRefresh((prev) => prev + 1);
+  };
 
   const toggleSortOrder = () => {
     setIsAdminSortOrder(!isAdminSortOrder);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-2">
+        <Loader />
+        <p>Fetching all users, Please be patience</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -99,22 +117,39 @@ const AdminHome: React.FC = () => {
         <p className="text-2xl font-medium text-center">No User Found</p>
       ) : (
         <>
-          <Button
-            className="mb-4 cursor-pointer"
-            onClick={handleDownloadCsv}
-            asChild
-          >
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-xs">Export to CSV</span>
-              <Image
-                src={DownloadIcon}
-                alt="download_icon"
-                height={50}
-                width={50}
-                className="w-4 invert dark:invert-0"
-              />
+          <div className="flex items-center justify-start gap-2">
+            <Button
+              className="cursor-pointer"
+              onClick={handleDownloadCsv}
+              asChild
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-xs">Export to CSV</span>
+                <Image
+                  src={DownloadIcon}
+                  alt="download_icon"
+                  height={50}
+                  width={50}
+                  className="w-4 invert dark:invert-0"
+                />
+              </div>
+            </Button>
+            <Button className="cursor-pointer" onClick={handleRefresh} asChild>
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-xs">Refresh</span>
+              </div>
+            </Button>
+
+            <div>
+              <div className="flex items-center border border-black dark:border-white rounded-md h-fit w-fit sm:px-6 px-4 py-2 gap-2">
+                <p className="font-semibold text-sm sm:text-md">Total Users</p>
+                <p className="font-semibold text-sm sm:text-md">
+                  {" "}
+                  {totalUsers}
+                </p>
+              </div>
             </div>
-          </Button>
+          </div>
           <Table>
             <TableCaption>All the users on Internhub website.</TableCaption>
             <TableHeader>
@@ -147,15 +182,6 @@ const AdminHome: React.FC = () => {
                 ))}
             </TableBody>
           </Table>
-          <div className="my-4">
-            <div className="flex items-center border border-black dark:border-white rounded-md h-fit w-fit sm:px-6 px-4 py-2 gap-2">
-              <p className="font-semibold text-sm sm:text-md">Total Users</p>
-              <p className="font-semibold text-sm sm:text-md">
-                {" "}
-                {users?.length}
-              </p>
-            </div>
-          </div>
         </>
       )}
     </>
