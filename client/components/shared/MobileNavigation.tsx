@@ -42,7 +42,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/" className="flex items-center justify-between">
+            <Link href="/" className="hover:bg-gray-200 flex items-center justify-between">
               <p>Home</p>
               <Image
                 src={HomeIcon}
@@ -54,7 +54,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/events" className="flex items-center justify-between">
+            <Link href="/events" className="hover:bg-gray-200 flex items-center justify-between">
               <p>Events</p>
               <Image
                 src={EventsIcon}
@@ -68,7 +68,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
           <DropdownMenuItem asChild>
             <Link
               href="/podcasts"
-              className="flex items-center justify-between"
+              className="hover:bg-gray-200 flex items-center justify-between"
             >
               <p>Podcasts</p>
               <Image
@@ -81,7 +81,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/team" className="flex items-center justify-between">
+            <Link href="/team" className="hover:bg-gray-200 flex items-center justify-between">
               <p>Team</p>
               <Image
                 src={TeamIcon}
@@ -93,7 +93,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/about" className="flex items-center justify-between">
+            <Link href="/about" className="hover:bg-gray-200 flex items-center justify-between">
               <p>About</p>
               <Image
                 src={AboutIcon}
@@ -105,7 +105,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/contact" className="flex items-center justify-between">
+            <Link href="/contact" className="hover:bg-gray-200 flex items-center justify-between">
               <p>Contact US</p>
               <Image
                 src={ContactIcon}
@@ -123,7 +123,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
               <DropdownMenuItem asChild>
                 <Link
                   href="/signup"
-                  className="flex items-center justify-between bg-green-600"
+                  className="flex items-center justify-between bg-green-400"
                 >
                   <p>Signup</p>
                   <Image
@@ -138,7 +138,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isLoggedIn }) => {
               <DropdownMenuItem asChild className="mt-1">
                 <Link
                   href="/login"
-                  className="flex items-center justify-between bg-green-600"
+                  className="flex items-center justify-between bg-blue-400"
                 >
                   <p>Login</p>
                   <Image

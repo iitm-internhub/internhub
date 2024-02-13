@@ -9,7 +9,7 @@ const getAllEvents = async (req: Request, res: Response) => {
     if (Object.keys(events).length === 0) {
       return res.status(404).json({
         success: false,
-        message: "no podcast found, come back later",
+        message: "no events found, come back later",
       });
     }
 

@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import connectDatabase from "./db/connectDatabase";
 
+
 import AuthenticationHandler from "./route/authentication.route";
 import PodcastHandler from "./route/podcast.router";
 import EventHandler from "./route/event.router";

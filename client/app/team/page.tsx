@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 import dommyPerson from "@/public/images/dommy.jpg";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "InternHub - Teams",
@@ -22,7 +23,7 @@ const Teams = () => {
               best placements for our students.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
             <div className="card">
               <Image
                 alt="Team member"
@@ -80,15 +81,24 @@ const Teams = () => {
                 <p className="text-gray-500">+1 234 567 890</p>
               </div>
             </div>
-          </div>
+          </div> */}
+          <br />
         </div>
       </section>
-      <footer className="w-full py-6 bg-gray-100 dark:bg-gray-800">
+      <footer className="w-full py-6 mt-[5rem] bg-gray-100 dark:bg-gray-800">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-2 text-center">
             <h2 className="text-xl font-bold">Contact Us</h2>
-            <p className="text-gray-500">placementcell@example.com</p>
-            <p className="text-gray-500">+1 234 567 890</p>
+            <p className="text-gray-500">
+            <Link
+                  className="text-blue-600"
+                  href="mailto:internhub.iintm@gmail.com"
+                  target="_blank"
+                >
+                  Email
+                </Link>
+            </p>
+            <p className="text-gray-500"></p>
           </div>
         </div>
       </footer>

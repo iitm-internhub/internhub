@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import Link from "next/link";
 
 const FAQ: React.FC = () => {
   return (
@@ -20,17 +21,17 @@ const FAQ: React.FC = () => {
                 How can I apply for an internship?
               </AccordionTrigger>
               <AccordionContent>
-                You can apply for internships through our portal. We will guide
-                you through the process.
+                You will be apply for internships through our portal . We will
+                guide you through the process.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger>
-                What types of internships are available?
+                What types of internships will available?
               </AccordionTrigger>
               <AccordionContent>
-                We offer a wide range of internships in various fields such as
-                software engineering, data science, product design, and more
+                We will be offering a wide range of internships in various
+                fields some selected by us some suggested by the students.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
@@ -38,38 +39,49 @@ const FAQ: React.FC = () => {
                 Can I do an internship during the academic year?
               </AccordionTrigger>
               <AccordionContent>
-                The internship provided me with valuable insights into the tech
-                industry.
+                Short answer it depends, if its during summer duration yes,
+                otherwise we will be providing you all with virtual internship
+                offers as well.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4">
               <AccordionTrigger>
-                How can I apply for an internship?
+                Can i get guidance and/or training in field I am intrested in?{" "}
               </AccordionTrigger>
               <AccordionContent>
-                You can apply for internships through our portal. We will guide
-                you through the process.
+                We will be having guest lectures and podcast on various topics
+                to help you throughout your college journey. We will also
+                provide filed specific guidance by our heads and mentors in
+                InternHub.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
               <AccordionTrigger>
-                What types of internships are available?
+                I want to be a part of Internhub as well, is there a way I
+                could contribute?
               </AccordionTrigger>
               <AccordionContent>
-                We offer a wide range of internships in various fields such as
-                software engineering, data science, product design, and more
+                We would be more than happy to have more helping hands, if you
+                or someone you know could help us provide more values to the
+                students fell free to reach us on{" "}
+                <Link
+                  className="text-blue-600"
+                  href="mailto:internhub.iintm@gmail.com"
+                  target="_blank"
+                >
+                  Email.
+                </Link>{" "}
+                You could also reach us offline at our campus{" "}
+                <Link
+                  href="https://maps.app.goo.gl/VXzcHziT2wRfp9jy9"
+                  className="text-blue-600"
+                >
+                  IITM D-27 Janakpuri.
+                </Link>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-6">
-              <AccordionTrigger>
-                Can I do an internship during the academic year?
-              </AccordionTrigger>
-              <AccordionContent>
-                The internship provided me with valuable insights into the tech
-                industry.
-              </AccordionContent>
-            </AccordionItem>
+            
           </Accordion>
         </div>
       </div>

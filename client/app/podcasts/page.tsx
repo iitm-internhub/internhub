@@ -33,13 +33,16 @@ const AdminPodcastPanel = () => {
       try {
         setIsLoading(true);
         const { data } = await axiosInstance.get("/api/v1/podcast/all");
+       
         if (data?.podcasts) {
           setPodcasts(data.podcasts);
         }
+
       } catch (error) {
+
         const err = error as AxiosError;
         const data: any = err.response?.data;
-        toast.error(`${data} something went wrong`);
+        // toast.error(`${data} something went wrong`);
       } finally {
         setIsLoading(false);
       }
@@ -51,8 +54,8 @@ const AdminPodcastPanel = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center gap-6 my-20">
-        <p className="font-semibold">wait, we are fetching latest podcasts</p>
         <Loader />
+        <p className="font-semibold">wait, we are fetching latest podcasts</p>
       </div>
     );
   }

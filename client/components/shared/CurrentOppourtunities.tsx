@@ -10,15 +10,18 @@ import {
 const CurrentOppourtunities: React.FC = () => {
   return (
     <section
-      className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800"
+      className=" w-full py-12 md:py-24 lg:py-32  dark:bg-gray-800"
       id="opportunities"
     >
       <div className="container px-4 md:px-6">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
           Current Internship Opportunities
         </h2>
-        <div className="grid gap-6 mt-8 md:grid-cols-2 lg:grid-cols-3">
-          <Card>
+        <div className="grid gap-6 mt-8 md:grid-cols-2 lg:grid-cols-1">
+       <Card className=" shadow-lg backdrop-blur-lg">
+        <CardTitle className="p-3 m-4   flex   justify-center text-xl">Coming Sooner than you expect</CardTitle>
+       </Card>
+          {/* <Card className="shadow-lg backdrop-blur-lg">
             <CardHeader>
               <CardTitle>Software Engineer Intern</CardTitle>
               <CardDescription>Google Inc.</CardDescription>
@@ -47,7 +50,7 @@ const CurrentOppourtunities: React.FC = () => {
               Collaborate with cross-functional teams to deliver innovative
               product designs.
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
       </div>
     </section>
