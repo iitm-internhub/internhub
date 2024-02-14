@@ -7,10 +7,10 @@ export interface UserSchemaInterface {
   password: string;
   phone_number: string;
   isAdmin: boolean;
-  collage_name?: string;
-  enrollment_number?: number;
-  semester?: string;
-  course?: string;
+  college: string;
+  semester: string;
+  course: string;
+  batch:string;
 }
 
 const userSchema: Schema = new mongoose.Schema(
@@ -20,10 +20,11 @@ const userSchema: Schema = new mongoose.Schema(
     password: { type: String, required: true },
     phone_number: { type: Number, required: true },
     isAdmin: { type: Boolean, default: false },
-    collage_name: { type: String, required: false },
-    enrollment_number: { type: Number, required: false },
+    college: { type: String, required: false },
     semester: { type: String, required: false },
     course: { type: String, required: false },
+    batch: { type: String, required: false },
+
   },
   {
     timestamps: true,

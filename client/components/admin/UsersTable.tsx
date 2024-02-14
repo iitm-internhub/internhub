@@ -17,8 +17,11 @@ interface UsersTableProps {
   email: string;
   phone_number: string;
   isAdmin: boolean;
+  college: string;
+  batch: string;
+  semester: string;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt?: Date;
 }
 
 const UsersTable: React.FC<UsersTableProps> = ({
@@ -27,7 +30,11 @@ const UsersTable: React.FC<UsersTableProps> = ({
   isAdmin,
   email,
   phone_number,
+  college,
+  batch,
+  semester,
   createdAt,
+  updatedAt,
 }) => {
   return (
     <>
@@ -41,6 +48,9 @@ const UsersTable: React.FC<UsersTableProps> = ({
         <TableCell className="font-medium">{username}</TableCell>
         <TableCell>{email}</TableCell>
         <TableCell>{phone_number}</TableCell>
+        <TableCell>{college}</TableCell>
+        <TableCell>{batch}</TableCell>
+        <TableCell>{semester}</TableCell>
         <TableCell className="text-right">
           {new Date(createdAt).toDateString()}
         </TableCell>

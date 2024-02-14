@@ -30,6 +30,9 @@ interface userInterface {
   email: string;
   phone_number: string;
   isAdmin: boolean;
+  semester: string;
+  batch: string;
+  college: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -58,7 +61,10 @@ const AdminHome: React.FC = () => {
           email: user.email,
           phone_number: user.phone_number,
           createdAt: user.createdAt,
+          batch: user.batch,
           isAdmin: user.isAdmin,
+          college: user.college,
+          semester: user.semester,
         }));
 
         setUsers(filteredUsers);
@@ -117,6 +123,7 @@ const AdminHome: React.FC = () => {
         <p className="text-2xl font-medium text-center">No User Found</p>
       ) : (
         <>
+          {console.log(users)}
           <div className="flex items-center justify-start gap-2">
             <Button
               className="cursor-pointer"
@@ -158,6 +165,9 @@ const AdminHome: React.FC = () => {
                 <TableHead>Username</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Phone Number</TableHead>
+                <TableHead>College</TableHead>
+                <TableHead>Batch</TableHead>
+                <TableHead>Semester</TableHead>
                 <TableHead className="text-right">Joined On</TableHead>
               </TableRow>
             </TableHeader>
@@ -178,6 +188,9 @@ const AdminHome: React.FC = () => {
                     createdAt={user?.createdAt}
                     updatedAt={user?.updatedAt}
                     isAdmin={user?.isAdmin}
+                    batch={user?.batch}
+                    semester={user?.semester}
+                    college={user?.college}
                   />
                 ))}
             </TableBody>

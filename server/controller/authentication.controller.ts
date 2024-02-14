@@ -6,13 +6,29 @@ import bcrypt from "bcrypt";
 
 const Signup = async (req: Request, res: Response) => {
   try {
-    const { username, password, email, phone_number } = req.body;
+    const {
+      username,
+      password,
+      email,
+      phone_number,
+      college,
+      batch,
+      semester,
+    } = req.body;
 
-    if (!username || !password || !email || !phone_number) {
+    if (
+      !username ||
+      !password ||
+      !email ||
+      !phone_number ||
+      !batch ||
+      !semester ||
+      !college
+    ) {
       return res.status(400).json({
         success: false,
         message:
-          "username, email, phone_number and password field cannot be empty",
+          "username, email, phone_number, password, batch, semester and college field cannot be empty",
       });
     }
 
@@ -41,6 +57,9 @@ const Signup = async (req: Request, res: Response) => {
           password: hash,
           email: email,
           phone_number: phone_number,
+          college: college,
+          semester: semester,
+          batch: batch,
         });
 
         const user = await newUser.save();

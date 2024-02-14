@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Control, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 import {
@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import signupFormSchema from "@/lib/schemas/signup.schema";
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
@@ -36,7 +36,6 @@ import {
 const Signup = () => {
   const router = useRouter();
   const [batch, setBatch] = useState<string | null>(null);
-
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -46,51 +45,64 @@ const Signup = () => {
       phone_number: "",
     },
   });
-
+  const { watch } = form;
+  const batchSelected = watch("batch");
+  useEffect(() => {
+    setBatch(batchSelected);
+  }, [batchSelected]);
   const onSubmit = async (values: z.infer<typeof signupFormSchema>) => {
-    const { username, password, email, phone_number, college } = values;
-    console.log("working");
-    console.log(values);
+    const {
+      username,
+      password,
+      email,
+      phone_number,
+      college,
+      batch,
+      semester,
+    } = values;
 
-    // try {
-    //   const { data } = await axiosInstance.post("/api/v1/auth/signup", {
-    //     username: username,
-    //     password: password,
-    //     email: email,
-    //     phone_number: phone_number,
-    //   });
-    //   if (data?.success && data?.success === true) {
-    //     const { authToken, message } = data;
-    //     localStorage.setItem("access_token", authToken);
-    //     toast.success(message);
-    //     router.push("/");
-    //     // window.location.href = "/";
-    //     return;
-    //   }
-    //   toast.error("something went wrong");
-    // } catch (error) {
-    //   const err = error as AxiosError;
-    //   const data: any = err.response?.data;
-    //   if (data?.message) {
-    //     toast.error(data?.message);
-    //     return;
-    //   }
+    try {
+      const { data } = await axiosInstance.post("/api/v1/auth/signup", {
+        username: username,
+        password: password,
+        email: email,
+        phone_number: phone_number,
+        college: college,
+        batch: batch,
+        semester: semester,
+      });
+      if (data?.success && data?.success === true) {
+        const { authToken, message } = data;
+        localStorage.setItem("access_token", authToken);
+        toast.success(message);
+        router.push("/");
+        window.location.href = "/";
+        return;
+      }
+      toast.error("something went wrong");
+    } catch (error) {
+      const err = error as AxiosError;
+      const data: any = err.response?.data;
+      if (data?.message) {
+        toast.error(data?.message);
+        return;
+      }
 
-    //   toast.error("something went wrong");
-    // }
+      toast.error("something went wrong");
+    }
   };
 
   return (
     <>
-      <div className="flex min-h-[93vh] bg-gray-100 dark:bg-[#09090b]">
+      <div className="flex min-h-[91vh] bg-gray-100 dark:bg-[#09090b]">
         <div
           className="w-1/2 bg-cover bg-center dark:opacity-60 lg:block hidden"
           style={{
             backgroundImage: "url('/images/authentication.avif')",
           }}
         />
-        <div className="m-auto w-full  sm:max-w-sm max-w-xs  bg-white shadow-md rounded-lg">
-          <div className="backdrop-blur-xl p-8   rounded-xl bg-white/20 shadow-lg ring-1 ring-black/5 shadow-slate-800 dark:shadow-slate-600">
+        <div className="m-auto w-full sm:max-w-md md:max-w-lg max-w-xs bg-white shadow-md rounded-lg">
+          <div className="backdrop-blur-xl p-8 rounded-xl bg-white/20 shadow-lg ring-1 ring-black/5 shadow-slate-800 dark:shadow-slate-600">
             <h1 className="text-2xl font-bold text-gray-900 text-center">
               Welcome to InternHub
             </h1>
@@ -196,7 +208,7 @@ const Signup = () => {
                             onValueChange={field.onChange}
                             defaultValue={field.value}
                           >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger className="w-full text-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                               <SelectValue placeholder="College" />
                             </SelectTrigger>
                             <SelectContent>
@@ -236,7 +248,7 @@ const Signup = () => {
                               defaultValue={field.value}
                               {...field}
                             >
-                              <SelectTrigger>
+                              <SelectTrigger className="w-full text-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                 <SelectValue placeholder="Batch" />
                               </SelectTrigger>
                               <SelectContent>
@@ -267,7 +279,7 @@ const Signup = () => {
                               defaultValue={field.value}
                               {...field}
                             >
-                              <SelectTrigger>
+                              <SelectTrigger className="w-full text-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                 <SelectValue placeholder="Semester" />
                               </SelectTrigger>
                               <SelectContent>
@@ -333,7 +345,7 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <Button className="w-full bg-gray-800 text-white hover:bg-gray-600">
+                <Button className="w-full bg-gray-800 text-black hover:bg-gray-600">
                   Signup
                 </Button>
                 <div className="text-center">
