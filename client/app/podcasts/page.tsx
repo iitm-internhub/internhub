@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import axiosInstance from "@/lib/axios-instance";
 import Podcasts from "@/components/shared/Podcasts";
 import { Metadata } from "next";
+import ComingSoon from "@/components/shared/ComingSoon";
 // export const metadata: Metadata = {
 //   title: "InternHub - Podcasts",
 //   description: "IINTM Placement cell",
@@ -24,7 +25,7 @@ interface podcastInterface {
 
 const UPLOADCARE_BASE_URL = "https://ucarecdn.com/";
 
-const AdminPodcastPanel = () => {
+const Podcast = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [podcasts, setPodcasts] = useState<podcastInterface[] | null>();
 
@@ -33,16 +34,15 @@ const AdminPodcastPanel = () => {
       try {
         setIsLoading(true);
         const { data } = await axiosInstance.get("/api/v1/podcast/all");
-       
+
         if (data?.podcasts) {
           setPodcasts(data.podcasts);
         }
-
       } catch (error) {
-
         const err = error as AxiosError;
         const data: any = err.response?.data;
-        // toast.error(`${data} something went wrong`);
+
+        toast(`${data.message}`);
       } finally {
         setIsLoading(false);
       }
@@ -60,13 +60,13 @@ const AdminPodcastPanel = () => {
     );
   }
 
-
   return (
     <section className="mx-auto max-w-screen-xl px-10 grid gap-6 my-10">
       {!podcasts ? (
-        <p>Coming soon</p>
+        <ComingSoon />
       ) : (
         <>
+          <h1 className="text-4xl font-bold text-center">Podcasts</h1>
           {podcasts.map((podcast: podcastInterface) => (
             <Podcasts
               key={podcast._id}
@@ -83,4 +83,4 @@ const AdminPodcastPanel = () => {
     </section>
   );
 };
-export default AdminPodcastPanel;
+export default Podcast;

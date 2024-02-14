@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 import { handleError } from "../error/handleError";
 import Company, { companySchemaInterface } from "../model/company.model";
 
+import nodeCache from "node-cache";
+
+const cache = new nodeCache();
+
 const createCompanyDetails = async (req: Request, res: Response) => {
   try {
     const {
@@ -14,24 +18,21 @@ const createCompanyDetails = async (req: Request, res: Response) => {
       companyLocation,
       companyJobRegistrationLink,
       companyLogo,
-      companyBanner
+      companyBanner,
     }: companySchemaInterface = req.body;
 
-
     if (
-        !companyName||
-        !companyDescription||
-        !companyJobTitle||
-        !companyJobDescription||
-        !companyJobType||
-        !companyJobDate||
-        !companyLocation||
-        !companyJobRegistrationLink||
-        !companyLogo||
-        !companyBanner
+      !companyName ||
+      !companyDescription ||
+      !companyJobTitle ||
+      !companyJobDescription ||
+      !companyJobType ||
+      !companyJobDate ||
+      !companyLocation ||
+      !companyJobRegistrationLink ||
+      !companyLogo ||
+      !companyBanner
     ) {
-      
-
       return res.status(400).json({
         success: false,
         message: "please provide all the details",
@@ -39,19 +40,23 @@ const createCompanyDetails = async (req: Request, res: Response) => {
     }
 
     const newCompany = new Company({
-        companyName,
-        companyDescription,
-        companyJobTitle,
-        companyJobDescription,
-        companyJobType,
-        companyJobDate,
-        companyLocation,
-        companyJobRegistrationLink,
-        companyLogo,
-        companyBanner
+      companyName,
+      companyDescription,
+      companyJobTitle,
+      companyJobDescription,
+      companyJobType,
+      companyJobDate,
+      companyLocation,
+      companyJobRegistrationLink,
+      companyLogo,
+      companyBanner,
     });
 
     const companyCreated = await newCompany.save();
+
+    if (cache.has("company")) {
+      cache.del("company");
+    }
 
     if (Object.keys(companyCreated).length === 0) {
       return res.status(500).json({

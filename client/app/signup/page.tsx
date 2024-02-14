@@ -16,16 +16,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import signupFormSchema from "@/lib/schemas/signup.schema";
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Signup = () => {
   const router = useRouter();
+  const [batch, setBatch] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
@@ -38,31 +48,36 @@ const Signup = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof signupFormSchema>) => {
-    const { username, password, email, phone_number } = values;
+    const { username, password, email, phone_number, college } = values;
+    console.log("working");
+    console.log(values);
 
-    try {
-      const { data } = await axiosInstance.post("/api/v1/auth/signup", {
-        username: username,
-        password: password,
-        email: email,
-        phone_number: phone_number,
-      });
+    // try {
+    //   const { data } = await axiosInstance.post("/api/v1/auth/signup", {
+    //     username: username,
+    //     password: password,
+    //     email: email,
+    //     phone_number: phone_number,
+    //   });
+    //   if (data?.success && data?.success === true) {
+    //     const { authToken, message } = data;
+    //     localStorage.setItem("access_token", authToken);
+    //     toast.success(message);
+    //     router.push("/");
+    //     // window.location.href = "/";
+    //     return;
+    //   }
+    //   toast.error("something went wrong");
+    // } catch (error) {
+    //   const err = error as AxiosError;
+    //   const data: any = err.response?.data;
+    //   if (data?.message) {
+    //     toast.error(data?.message);
+    //     return;
+    //   }
 
-      if (data?.success && data?.success === true) {
-        const { authToken, message } = data;
-        localStorage.setItem("access_token", authToken);
-        toast.success(message);
-        router.push("/");
-        // window.location.href = "/";
-        return;
-      }
-
-      toast.error("something went wrong");
-    } catch (error) {
-      const err = error as AxiosError;
-      const data: any = err.response?.data;
-      toast.error(data?.message);
-    }
+    //   toast.error("something went wrong");
+    // }
   };
 
   return (
@@ -136,7 +151,8 @@ const Signup = () => {
                           Password
                         </FormLabel>
                         <FormControl>
-                          <Input type="password"
+                          <Input
+                            type="password"
                             className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             placeholder="password"
                             {...field}
@@ -168,6 +184,155 @@ const Signup = () => {
                     )}
                   />
                 </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="college"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Select
+                            {...field}
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="College" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>College</SelectLabel>
+                                <SelectItem value="IINTM">
+                                  (IINTM) Institute of Innovation in Technology
+                                  and Management
+                                </SelectItem>
+                                <SelectItem value="IITM">
+                                  (IITM) Institute of Information Technology and
+                                  Management
+                                </SelectItem>
+                                <SelectItem value="IPITM">
+                                  (IPITM) Indraprastha Institute of Technology
+                                  and Management
+                                </SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="batch"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                              {...field}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Batch" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Course</SelectLabel>
+                                  <SelectItem value="BCA">BCA</SelectItem>
+                                  <SelectItem value="BBA">BBA</SelectItem>
+                                  <SelectItem value="B.COM">B.COM</SelectItem>
+                                  <SelectItem value="B.TECH">B.TECH</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="semester"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                              {...field}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Semester" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Semester</SelectLabel>
+                                  {batch === "B.TECH" ? (
+                                    <>
+                                      <SelectItem value="SEM_1">
+                                        SEM 1
+                                      </SelectItem>
+                                      <SelectItem value="SEM_2">
+                                        SEM 2
+                                      </SelectItem>
+                                      <SelectItem value="SEM_3">
+                                        SEM 3
+                                      </SelectItem>
+                                      <SelectItem value="SEM_4">
+                                        SEM 4
+                                      </SelectItem>
+                                      <SelectItem value="SEM_5">
+                                        SEM 5
+                                      </SelectItem>
+                                      <SelectItem value="SEM_6">
+                                        SEM 6
+                                      </SelectItem>
+                                      <SelectItem value="SEM_7">
+                                        SEM 7
+                                      </SelectItem>
+                                      <SelectItem value="SEM_8">
+                                        SEM 8
+                                      </SelectItem>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <SelectItem value="SEM_1">
+                                        SEM 1
+                                      </SelectItem>
+                                      <SelectItem value="SEM_2">
+                                        SEM 2
+                                      </SelectItem>
+                                      <SelectItem value="SEM_3">
+                                        SEM 3
+                                      </SelectItem>
+                                      <SelectItem value="SEM_4">
+                                        SEM 4
+                                      </SelectItem>
+                                      <SelectItem value="SEM_5">
+                                        SEM 5
+                                      </SelectItem>
+                                      <SelectItem value="SEM_6">
+                                        SEM 6
+                                      </SelectItem>
+                                    </>
+                                  )}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
                 <Button className="w-full bg-gray-800 text-white hover:bg-gray-600">
                   Signup
                 </Button>

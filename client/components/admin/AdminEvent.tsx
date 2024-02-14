@@ -77,7 +77,7 @@ const AdminEventPanel = () => {
   return (
     <>
       <Link href="/admin/event">
-        <Button className="m-2">Create new event</Button>
+        <Button className="m-2">Add new event</Button>
       </Link>
 
       {!events ? (

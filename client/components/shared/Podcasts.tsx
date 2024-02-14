@@ -74,7 +74,9 @@ const Podcasts: React.FC<PodcastsProps> = ({
       </div>
       <CardContent className="p-6">
         <div className="grid gap-1 mb-4">
-          <h1 className="text-lg font-bold leading-none">{podcastTitle}</h1>
+          <h1 className="text-lg font-bold leading-none">
+            {podcastTitle.charAt(0).toUpperCase() + podcastTitle.slice(1)}
+          </h1>
           {/* <p className="text-sm leading-none">{podcastGuest}</p> */}
         </div>
         <div className="grid gap-1 mb-4">

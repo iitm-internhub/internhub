@@ -123,12 +123,15 @@ const AddPodcast = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="max-w-screen-xl mx-auto my-10"
+      >
         <Card className="w-full h-full mx-auto my-auto max-w-3xl shadow-lg dark:shadow-blue-900 backdrop-blur-lg">
           <CardHeader className="space-y-1">
-            <CardTitle>Upload a new episode</CardTitle>
+            <CardTitle className="text-xl">Add a new podcast</CardTitle>
             <CardDescription>
-              Fill out the form below to upload a new episode to your podcast.
+              Fill out the form below to upload a new podcast episode.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -141,7 +144,11 @@ const AddPodcast = () => {
                     <FormItem>
                       <FormLabel>Podcast Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="podcast title" {...field} />
+                        <Input
+                          placeholder="podcast title"
+                          {...field}
+                          autoComplete="off"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -159,6 +166,7 @@ const AddPodcast = () => {
                         <Input
                           placeholder="https://www.youtube.com/watch?"
                           {...field}
+                          autoComplete="off"
                         />
                       </FormControl>
                       <FormMessage />
@@ -210,8 +218,9 @@ const AddPodcast = () => {
                     <FormControl>
                       <Textarea
                         className="min-h-[100px]"
-                        placeholder="podcast Description for readers"
+                        placeholder="podcast description"
                         {...field}
+                        autoComplete="off"
                       />
                     </FormControl>
                     <FormMessage />
@@ -219,7 +228,7 @@ const AddPodcast = () => {
                 )}
               />
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-1.5 flex flex-col">
               <Label>Thumbnail</Label>
               <lr-config
                 ctx-name="my-banner-uploader"

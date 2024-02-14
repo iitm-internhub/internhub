@@ -70,7 +70,7 @@ const AdminPodcast: React.FC = () => {
   return (
     <>
       <Link href="/admin/podcast" className="">
-        <Button className="my-2 mx-2">Upload New Podcast</Button>
+        <Button className="my-2 mx-2">Add new podcast</Button>
       </Link>
       {!podcasts ? (
         <p className="text-center mt-10 font-bold text-xl">
@@ -86,8 +86,8 @@ const AdminPodcast: React.FC = () => {
         <div className="grid sm:grid-cols-2 mb-4 md:grid-cols-3 grid-cols-1 gap-6">
           {podcasts.map((podcast) => (
             <Card
-            className="w-full  shadow-lg backdrop-blur-lg shadow-[#ccbb82] dark:shadow-blue-900 max-w-sm mx-auto"
-            key={podcast._id}
+              className="w-full  shadow-lg backdrop-blur-lg shadow-[#ccbb82] dark:shadow-blue-900 max-w-sm mx-auto"
+              key={podcast._id}
             >
               <div className="relative">
                 <div className="aspect-[16/9] rounded-t-lg overflow-hidden">

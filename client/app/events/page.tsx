@@ -15,10 +15,8 @@ import { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios-instance";
 import toast from "react-hot-toast";
 import Loader from "@/components/shared/Loader";
-// export const metadata: Metadata = {
-//   title: "InternHub - Events",
-//   description: "IINTM Placement cell",
-// };
+import ComingSoon from "@/components/shared/ComingSoon";
+
 interface EventInterface {
   id: string;
   eventTitle: string;
@@ -48,7 +46,11 @@ const Event = () => {
       } catch (error) {
         const err = error as AxiosError;
         const data: any = err?.response?.data;
-        toast.error(data?.message);
+        if (data?.message) {
+          toast(data?.message);
+          return;
+        }
+        toast("some went wrong");
       } finally {
         setIsLoading(false);
       }
@@ -69,14 +71,12 @@ const Event = () => {
   }
 
   return (
-    <section
-      key="1"
-      className="w-full py-12 grid grid-rows-1 sm:grid-rows-2  gap-8 md:py-24 lg:py-32"
-    >
+    <section className="mx-auto max-w-screen-xl px-10 grid gap-6 my-10">
       {!events ? (
-        <p>Coming soon</p>
+        <ComingSoon />
       ) : (
         <>
+          <h1 className="text-4xl font-bold text-center">Events</h1>
           {events.map((event: EventInterface) => (
             <div
               key={event.id}
@@ -89,7 +89,7 @@ const Event = () => {
                       <Image
                         alt="Image 1"
                         height={310}
-                        src={InternHubLogo}
+                        src={UPLOADCARE_BASE_URL + `${event.eventImageIds[0]}/`}
                         style={{
                           aspectRatio: "550/310",
                           objectFit: "cover",
@@ -103,10 +103,10 @@ const Event = () => {
                 </Carousel>
                 <div className="flex flex-col justify-center space-y-4">
                   <div className="space-y-2">
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                    <h2 className="text-2xl font-bold tracking-tighter sm:text-5xl">
                       {event.eventTitle}
                     </h2>
-                    <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                    <p className="max-w-[600px] text-gray-500 text-sm sm:text-base md:text-xl dark:text-gray-400">
                       {event.eventDescription}
                     </p>
                     <p className="max-w-[600px] text-gray-800 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-300">
