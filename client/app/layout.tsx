@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Noto_Sans } from "next/font/google";
+import { Inter, Poppins, Noto_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
 import { ThemeProvider } from "@/components/context/theme-provider";
@@ -11,6 +11,10 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "700"],
 });
 const noto_sans = Noto_Sans({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "700"],
+});
+const jetbrains_mono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "700"],
 });

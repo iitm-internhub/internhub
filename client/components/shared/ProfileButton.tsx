@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
@@ -17,20 +16,24 @@ import SupportIcon from "@/public/icons/support.svg";
 import SettingsIcon from "@/public/icons/settings.svg";
 import ProfileIcon from "@/public/icons/profile.svg";
 import UpcommingEventIcon from "@/public/icons/events.svg";
+
 import Image from "next/image";
 
 const ProfileButton: React.FC = () => {
-  const logout = () => {
-    localStorage.removeItem("access_token");
-    window.location.reload();
-  };
   const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     const admin_access_token = localStorage.getItem("admin_access_token");
     if (admin_access_token) {
       setIsAdmin(true);
     }
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user");
+    window.location.reload();
+  };
 
   return (
     <DropdownMenu>
@@ -45,8 +48,11 @@ const ProfileButton: React.FC = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <div className="flex items-center justify-between">
-              <Link href="/profile">Profile</Link>
+            <Link
+              href="/profile"
+              className="flex items-center justify-between cursor-pointer"
+            >
+              Profile
               <Image
                 src={ProfileIcon}
                 alt="profile_icon"
@@ -54,11 +60,14 @@ const ProfileButton: React.FC = () => {
                 width={1000}
                 className="h-4 w-4"
               />
-            </div>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <div className="flex items-center justify-between">
-              <p>Your Biz</p>
+            <Link
+              href="/biz"
+              className="flex items-center justify-between cursor-pointer"
+            >
+              Your Biz
               <Image
                 src={UpcommingEventIcon}
                 alt="event_icon"
@@ -66,14 +75,17 @@ const ProfileButton: React.FC = () => {
                 width={1000}
                 className="h-4 w-4"
               />
-            </div>
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <div className="flex items-center justify-between">
-            <p>Support</p>
+          <Link
+            href="/support"
+            className="flex items-center justify-between cursor-pointer"
+          >
+            Support
             <Image
               src={SupportIcon}
               alt="support_icon"
@@ -81,10 +93,13 @@ const ProfileButton: React.FC = () => {
               width={1000}
               className="h-4 w-4"
             />
-          </div>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <div className="flex items-center justify-between">
+          <Link
+            href="/settings"
+            className="flex items-center justify-between cursor-pointer"
+          >
             <p>Settings</p>
             <Image
               src={SettingsIcon}
@@ -93,7 +108,7 @@ const ProfileButton: React.FC = () => {
               width={1000}
               className="h-4 w-4"
             />
-          </div>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         {isAdmin ? (
@@ -110,7 +125,7 @@ const ProfileButton: React.FC = () => {
         ) : null}
         <DropdownMenuItem
           onClick={logout}
-          className="bg-red-600 text-white mt-1 flex justify-between items-center"
+          className="bg-red-600 text-white mt-1 flex justify-between items-center cursor-pointer"
         >
           Log out
           <Image

@@ -10,7 +10,7 @@ export interface UserSchemaInterface {
   college: string;
   semester: string;
   course: string;
-  batch:string;
+  batch: string;
 }
 
 const userSchema: Schema = new mongoose.Schema(
@@ -24,7 +24,6 @@ const userSchema: Schema = new mongoose.Schema(
     semester: { type: String, required: false },
     course: { type: String, required: false },
     batch: { type: String, required: false },
-
   },
   {
     timestamps: true,

@@ -44,9 +44,10 @@ const Login = () => {
         email: email,
         password: password,
       });
-      const { authToken, success, message } = data;
+      const { authToken, success, message, user } = data;
       if (success == true) {
         localStorage.setItem("access_token", authToken);
+        localStorage.setItem("user", JSON.stringify(user));
         toast.success(message);
         router.replace("/");
         window.location.href = "/";
@@ -110,7 +111,8 @@ const Login = () => {
                         Password
                       </FormLabel>
                       <FormControl>
-                        <Input type="password"
+                        <Input
+                          type="password"
                           className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                           placeholder="password"
                           {...field}

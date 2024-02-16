@@ -33,4 +33,35 @@ const protect_admin = async (
   }
 };
 
-export default protect_admin;
+const protect_user = async (
+  req: Request | any,
+  res: Response,
+  next: NextFunction
+) => {
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const JWT_SECRET_KEY: string = process.env.JWT_SECRET_KEY || "";
+      const decoded_admin: any = jwt.verify(token, JWT_SECRET_KEY);
+
+      req.user = await User.findById(decoded_admin._id);
+
+      next();
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        message: "unauthorized: invalid token",
+      });
+    }
+  } else {
+    return res.status(401).json({
+      success: false,
+      message: "unauthorized: token not provided",
+    });
+  }
+};
+
+export { protect_admin, protect_user };

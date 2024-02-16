@@ -3,7 +3,7 @@ import {
   createEventDetails,
   getAllEvents,
 } from "../admin-controller/admin.event";
-import protect_admin from "../middleware/verifyToken";
+import { protect_admin } from "../middleware/verifyToken";
 
 const router = express.Router();
 

@@ -3,7 +3,7 @@ import {
   createCompanyDetails,
   getAllCompanies,
 } from "../admin-controller/admin.company";
-import protect_admin from "../middleware/verifyToken";
+import { protect_admin } from "../middleware/verifyToken";
 
 const router = express.Router();
 

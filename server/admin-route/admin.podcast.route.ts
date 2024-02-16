@@ -3,7 +3,7 @@ import {
   createPodcastDetails,
   getAllPodcasts,
 } from "../admin-controller/admin.podcast";
-import protect_admin from "../middleware/verifyToken";
+import { protect_admin } from "../middleware/verifyToken";
 
 const router = express.Router();
 
