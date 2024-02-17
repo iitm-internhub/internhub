@@ -60,7 +60,7 @@ const ProfileSettings: React.FC = () => {
       try {
         setIsLoading(true);
         const { data } = await axiosInstance.get(
-          "http://localhost:8080/api/v1/user/info",
+          "/api/v1/user/info",
           {
             headers: {
               Authorization: `Bearer ${userToken}`,
@@ -152,7 +152,7 @@ const ProfileSettings: React.FC = () => {
                     </div>
                     <div>
                       <p className="font-medium line-clamp-1">Phone number</p>
-                      <span className="line-clamp-1">{user.phone_number}</span>
+                      <span className="line-clamp-1">+{user.phone_number.toString().slice(0, 2) + " " + user.phone_number.toString().slice(2)}</span>
                     </div>
                   </div>
                 </div>

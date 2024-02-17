@@ -1,85 +1,235 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/0AwQeZp
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-import { Label } from "@/components/ui/label";
+"use client";
+import {
+  Card,
+  CardContent,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
-  SelectValue,
-  SelectTrigger,
-  SelectLabel,
-  SelectItem,
-  SelectGroup,
-  SelectContent,
   Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { CardContent, Card } from "@/components/ui/card";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import axiosInstance from "@/lib/axios-instance";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import EnquiryFormSchema from "@/lib/schemas/enquiry.schema";
 const Contact = () => {
+  const router = useRouter();
+  const form = useForm<z.infer<typeof EnquiryFormSchema>>({
+    resolver: zodResolver(EnquiryFormSchema),
+    defaultValues: {
+      enquirerName: "",
+      enquirerEmail: "",
+      enquirerDate: new Date(),
+      enquirerReason: "",
+      enquirerType: "",
+      enquirerQuery: "",
+    },
+  });
+  const onSubmit = async (values: z.infer<typeof EnquiryFormSchema>) => {
+    const {
+      enquirerName,
+      enquirerEmail,
+      enquirerDate,
+      enquirerReason,
+      enquirerType,
+      enquirerQuery,
+    } = values;
+    console.log(values);
+    try {
+      const { data } = await axiosInstance.post("/api/v1/auth/enqiry", {
+        enquirerName: enquirerName,
+        enquirerEmail: enquirerEmail,
+        enquirerDate: enquirerDate,
+        enquirerReason: enquirerReason,
+        enquirerType: enquirerType,
+        enquirerQuery: enquirerQuery,
+      });
+      const { authToken, success, message, user } = data;
+      if (success == true) {
+        localStorage.setItem("access_token", authToken);
+        localStorage.setItem("user", JSON.stringify(user));
+        toast.success(message);
+        router.replace("/");
+        window.location.href = "/";
+        return;
+      }
+
+      toast.error("something went wrong");
+    } catch (error) {
+      const err = error as AxiosError;
+      const data: any = err?.response?.data;
+      toast.error(data?.message);
+    }
+  };
   return (
-    <div className="flex items-center justify-center h-[90lvh] bg-gray-100 dark:bg-gray-500 px-4">
-      <Card>
-        <CardContent>
-          <div className="space-y-8">
-            <div className="space-y-2 my-6">
-              <h2 className="text-3xl font-semibold">Contact Us</h2>
-              <p className="text-zinc-500 dark:text-zinc-400">
-                Fill out the form below and we&apos;ll get back to you as soon
-                as possible.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="first-name">First name</Label>
-                  <Input id="first-name" placeholder="Enter your first name" />
+    <div className="flex items-center justify-center h-[90lvh] bg-gray-100 mt-8 dark:bg-gray-500 px-4">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Card>
+            <CardContent>
+              <div className="space-y-8">
+                <div className="space-y-2 my-6">
+                  <h2 className=" text-3xl font-semibold text-center">
+                    Enquiry ? <br />{" "}
+                    <p className="text-zinc-500 dark:text-zinc-400">
+                      Get in touch with us via filling the form below
+                    </p>
+                  </h2>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="last-name">Last name</Label>
-                  <Input id="last-name" placeholder="Enter your last name" />
+                <div className="space-y-4">
+                  <div className="grid  gap-4">
+                    <div className="space-y-2">
+                      <FormField
+                        control={form.control}
+                        name="enquirerName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="block text-sm font-medium text-gray-700">
+                              Full Name
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                placeholder="John Doe"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="enquirerEmail"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="block text-sm font-medium text-gray-700">
+                            Email
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                              placeholder="someone@gamil.com"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />{" "}
+                  </div>
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="enquirerReason"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Regarding</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            {...field}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select your enquiry  regarding" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="internships">
+                                Internships
+                              </SelectItem>
+                              <SelectItem value="podcast/guest-lectures">
+                                Podcasts/Guest Lectures
+                              </SelectItem>
+                              <SelectItem value="events">Events</SelectItem>
+                              <SelectItem value="others">Others</SelectItem>
+                            </SelectContent>
+                          </Select>                        <FormMessage />
+
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="enquirerType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Representing</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            {...field}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="What do you represent?" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="orgnisation">
+                                Orgnisation
+                              </SelectItem>
+                              <SelectItem value="individual">
+                                Individual
+                              </SelectItem>
+                              <SelectItem value="others">Other</SelectItem>
+                            </SelectContent>
+                          </Select>                        <FormMessage />
+
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="enquirerQuery"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Message</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              className="min-h-[100px]"
+                              placeholder="message description"
+                              {...field}
+                              autoComplete="off"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button className="bg-gray-800 text-white" type="submit">
+                    Send message
+                  </Button>
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" placeholder="Enter your email" type="email" />
-              </div>
-              <div className="space-y-2">
-                <Label>Pronoun</Label>
-                <Select>
-                  <SelectTrigger aria-label="Pronoun">
-                    <SelectValue placeholder="Select your pronoun" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Pronouns</SelectLabel>
-                      <SelectItem value="he/him">He/Him</SelectItem>
-                      <SelectItem value="she/her">She/Her</SelectItem>
-                      <SelectItem value="they/them">They/Them</SelectItem>
-                      <SelectItem value="prefer not to say">
-                        Prefer not to say
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  className="min-h-[100px]"
-                  id="message"
-                  placeholder="Enter your message"
-                />
-              </div>
-              <Button className="bg-gray-800 text-white" type="submit">
-                Send message
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+        </form>
+      </Form>
     </div>
   );
 };

@@ -95,21 +95,7 @@ const ProfileButton: React.FC = () => {
             />
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link
-            href="/settings"
-            className="flex items-center justify-between cursor-pointer"
-          >
-            <p>Settings</p>
-            <Image
-              src={SettingsIcon}
-              alt="settings_icon"
-              height={1000}
-              width={1000}
-              className="h-4 w-4"
-            />
-          </Link>
-        </DropdownMenuItem>
+       
         <DropdownMenuSeparator />
         {isAdmin ? (
           <DropdownMenuItem className="flex justify-between items-center">
