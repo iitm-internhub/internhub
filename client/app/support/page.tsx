@@ -99,7 +99,7 @@ const Support = () => {
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Contact Us</CardTitle>
               <CardDescription>
-                Enter your information below and we'll get back to you as soon
+                Enter your information below and we&apos;ll get back to you as soon
                 as possible.
               </CardDescription>
             </CardHeader>
