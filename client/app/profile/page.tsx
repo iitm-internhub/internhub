@@ -59,18 +59,16 @@ const ProfileSettings: React.FC = () => {
     const getUserInfo = async () => {
       try {
         setIsLoading(true);
-        const { data } = await axiosInstance.get(
-          "/api/v1/user/info",
-          {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          }
-        );
+        const { data } = await axiosInstance.get("/api/v1/user/info", {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        });
 
         if (data?.success) {
           toast.success(data?.message);
           setUser(data?.user);
+          setIsError(false);
           return;
         }
       } catch (error) {
@@ -86,7 +84,7 @@ const ProfileSettings: React.FC = () => {
       }
     };
 
-    getUserInfo();
+    if (userToken) getUserInfo();
   }, [userToken]);
 
   if (isLoading) {
@@ -152,7 +150,12 @@ const ProfileSettings: React.FC = () => {
                     </div>
                     <div>
                       <p className="font-medium line-clamp-1">Phone number</p>
-                      <span className="line-clamp-1">+{user.phone_number.toString().slice(0, 2) + " " + user.phone_number.toString().slice(2)}</span>
+                      <span className="line-clamp-1">
+                        +
+                        {user.phone_number.toString().slice(0, 2) +
+                          " " +
+                          user.phone_number.toString().slice(2)}
+                      </span>
                     </div>
                   </div>
                 </div>

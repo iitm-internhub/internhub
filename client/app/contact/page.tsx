@@ -1,8 +1,5 @@
 "use client";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -31,8 +28,11 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import EnquiryFormSchema from "@/lib/schemas/enquiry.schema";
+import { useState } from "react";
+import Loader from "@/components/shared/Loader";
 const Contact = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof EnquiryFormSchema>>({
     resolver: zodResolver(EnquiryFormSchema),
     defaultValues: {
@@ -45,31 +45,27 @@ const Contact = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof EnquiryFormSchema>) => {
+    setIsLoading(true);
     const {
       enquirerName,
       enquirerEmail,
-      enquirerDate,
       enquirerReason,
       enquirerType,
       enquirerQuery,
     } = values;
-    console.log(values);
+
     try {
-      const { data } = await axiosInstance.post("/api/v1/auth/enqiry", {
-        enquirerName: enquirerName,
-        enquirerEmail: enquirerEmail,
-        enquirerDate: enquirerDate,
-        enquirerReason: enquirerReason,
-        enquirerType: enquirerType,
-        enquirerQuery: enquirerQuery,
+      const { data } = await axiosInstance.post("/api/v1/contact/enquiry", {
+        fullname: enquirerName,
+        email: enquirerEmail,
+        regarding: enquirerReason,
+        representing: enquirerType,
+        message: enquirerQuery,
       });
-      const { authToken, success, message, user } = data;
-      if (success == true) {
-        localStorage.setItem("access_token", authToken);
-        localStorage.setItem("user", JSON.stringify(user));
+      const { success, message } = data!;
+      if (success === true) {
         toast.success(message);
         router.replace("/");
-        window.location.href = "/";
         return;
       }
 
@@ -78,6 +74,8 @@ const Contact = () => {
       const err = error as AxiosError;
       const data: any = err?.response?.data;
       toast.error(data?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -165,8 +163,8 @@ const Contact = () => {
                               <SelectItem value="events">Events</SelectItem>
                               <SelectItem value="others">Others</SelectItem>
                             </SelectContent>
-                          </Select>                        <FormMessage />
-
+                          </Select>{" "}
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -195,8 +193,8 @@ const Contact = () => {
                               </SelectItem>
                               <SelectItem value="others">Other</SelectItem>
                             </SelectContent>
-                          </Select>                        <FormMessage />
-
+                          </Select>{" "}
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -221,9 +219,16 @@ const Contact = () => {
                       )}
                     />
                   </div>
-                  <Button className="bg-gray-800 text-white" type="submit">
-                    Send message
-                  </Button>
+                  {isLoading ? (
+                    <div className="py-2 grid gap-4 place-items-center">
+                      <Loader />
+                      <p className="font-medium">Loading</p>
+                    </div>
+                  ) : (
+                    <Button className="bg-gray-800 text-white" type="submit">
+                      Send message
+                    </Button>
+                  )}
                 </div>
               </div>
             </CardContent>

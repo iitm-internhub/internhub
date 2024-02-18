@@ -16,18 +16,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import loginFormSchema from "@/lib/schemas/login.schema";
 
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
-// import { useRouter } from "next/navigation";
-import { useRouter } from "next/navigation";
+import Loader from "@/components/shared/Loader";
 
 const Login = () => {
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -40,6 +39,7 @@ const Login = () => {
   const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     const { password, email } = values;
     try {
+      setIsLoading(true);
       const { data } = await axiosInstance.post("/api/v1/auth/login", {
         email: email,
         password: password,
@@ -49,8 +49,11 @@ const Login = () => {
         localStorage.setItem("access_token", authToken);
         localStorage.setItem("user", JSON.stringify(user));
         toast.success(message);
-        router.replace("/");
-        window.location.href = "/";
+
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1 * 1000);
+
         return;
       }
 
@@ -59,6 +62,8 @@ const Login = () => {
       const err = error as AxiosError;
       const data: any = err?.response?.data;
       toast.error(data?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -123,9 +128,16 @@ const Login = () => {
                   )}
                 />
               </div>
-              <Button className="w-full bg-gray-800 text-white hover:bg-gray-600">
-                Login
-              </Button>
+              {isLoading ? (
+                <div className="py-2 grid place-items-center gap-2">
+                  <Loader />
+                  <p className="font-medium">Loading..</p>
+                </div>
+              ) : (
+                <Button className="w-full bg-gray-800 text-white hover:bg-gray-600">
+                  Login
+                </Button>
+              )}
               <div className="text-center">
                 <p className="mt-2 text-sm text-gray-600">
                   Don&apos;t have an account ?

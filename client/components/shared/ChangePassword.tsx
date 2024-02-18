@@ -19,8 +19,16 @@ import { Label } from "../ui/label";
 import EyeIcon from "@/public/icons/eye.svg";
 import EyeSlashIcon from "@/public/icons/eye-slash.svg";
 import Image from "next/image";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import axiosInstance from "@/lib/axios-instance";
+import { useAuth } from "../context/auth";
+import Loader from "./Loader";
 
 const ChangePassword = () => {
+  const { userId: userToken } = useAuth();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [oldPassword, setOldPassword] = useState<string | undefined>();
   const [newPassword, setNewPassword] = useState<string | undefined>();
 
@@ -34,10 +42,46 @@ const ChangePassword = () => {
     setNewPasswordShow(!newPasswordShow);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(oldPassword, newPassword);
+    if (!oldPassword || !newPassword) {
+      toast.error("password field cannot be empty!");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const { data } = await axiosInstance.patch(
+        "/api/v1/user/update-password",
+        {
+          oldPassword,
+          newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
+      if (data?.success) {
+        if (data?.message) {
+          toast.success(data?.message);
+        }
+
+        setTimeout(() => {
+          localStorage.removeItem("access_token");
+          location.href = "/";
+        }, 1 * 1000);
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      const data: any = err?.response?.data;
+      toast.error(data?.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -71,7 +115,7 @@ const ChangePassword = () => {
                   alt="show"
                   height={1000}
                   width={1000}
-                  className="h-4 w-4"
+                  className="h-6 w-6 cursor-pointer"
                   onClick={toggleOldPasswordShow}
                 />
               </div>
@@ -93,18 +137,25 @@ const ChangePassword = () => {
                   alt="show"
                   height={1000}
                   width={1000}
-                  className="h-4 w-4"
+                  className="h-6 w-6 cursor-pointer"
                   onClick={toggleNewPasswordShow}
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <Button type="submit">Submit</Button>
-              <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </div>
+            {isLoading ? (
+              <div className="py-2 grid place-items-center gap-2">
+                <Loader />
+                <p className="font-medium">Loading..</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                <Button type="submit">Submit</Button>
+                <DrawerClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DrawerClose>
+              </div>
+            )}
           </form>
           <DrawerFooter className="text-center text-xs gap-0 my-4">
             <span>This act is under supervision.</span>{" "}
