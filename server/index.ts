@@ -7,11 +7,11 @@ import AuthenticationHandler from "./route/authentication.route";
 import PodcastHandler from "./route/podcast.router";
 import EventHandler from "./route/event.router";
 import UserHandler from "./route/user.route";
-
+import CompanyEventHandler from "./route/company.router";
 import AdminAuthHandler from "./admin-route/admin.auth.route";
 import AdminInfoHandler from "./admin-route/admin.info.route";
 import AdminEventHandler from "./admin-route/admin.event.route";
-import CompanyEventHandler from "./admin-route/admin.company.route";
+import AdminCompanyEventHandler from "./admin-route/admin.company.route";
 import PodcastEventHandler from "./admin-route/admin.podcast.route";
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
@@ -34,11 +34,12 @@ app.use("/api/v1/auth", AuthenticationHandler);
 app.use("/api/v1/user", UserHandler);
 app.use("/api/v1/podcast", PodcastHandler);
 app.use("/api/v1/event", EventHandler);
+app.use("/api/v1/company", CompanyEventHandler);
 // admin server routes
 app.use("/api/v1/auth-admin", AdminAuthHandler);
 app.use("/api/v1/info-admin", AdminInfoHandler);
 app.use("/api/v1/event-admin", AdminEventHandler);
-app.use("/api/v1/company-admin", CompanyEventHandler);
+app.use("/api/v1/company-admin", AdminCompanyEventHandler);
 app.use("/api/v1/podcast-admin", PodcastEventHandler);
 
 1;

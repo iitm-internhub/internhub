@@ -20,8 +20,8 @@ const AdminLogin: React.FC<AdminLoginProps> = ({
   handleSubmit,
 }) => {
   return (
-    <div className="flex items-center min-h-screen px-4">
-      <div className="w-full max-w-md mx-auto space-y-8 p-4 rounded-lg backdrop-blur-lg shadow-lg">
+    <div className="flex items-center min-h-screen px-4 ">
+      <div className="w-full max-w-md mx-auto space-y-8 p-4 rounded-lg backdrop-blur-lg shadow-lg shadow-gray-700">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">Admin Panel</h1>
         </div>

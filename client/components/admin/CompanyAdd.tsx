@@ -95,6 +95,7 @@ const AddCompany = () => {
       companyJobDate: new Date(),
       companyLocation: "",
       companyJobRegistrationLink: "",
+      companyJobStipend:"",
     },
   });
   const onSubmit = async (values: z.infer<typeof companyFormSchema>) => {
@@ -108,6 +109,7 @@ const AddCompany = () => {
         companyJobDate,
         companyLocation,
         companyJobRegistrationLink,
+        companyJobStipend
       } = values;
 
       if (!companyLogo || !companyBanner) {
@@ -129,6 +131,7 @@ const AddCompany = () => {
           companyJobRegistrationLink,
           companyLogo,
           companyBanner,
+          companyJobStipend
         },
         {
           headers: {
@@ -152,7 +155,7 @@ const AddCompany = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto max-w-3xl space-y-8 shadow-lg backdrop-blur-lg p-3 rounded-md m-3"
+        className="mx-auto mt-4 max-w-3xl space-y-8 shadow-lg shadow-gray-800 backdrop-blur-lg p-3 rounded-md m-3"
       >
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">Upload Company Information</h1>
@@ -169,7 +172,7 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Company Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="some title" {...field} />
+                    <Input className="dark:text-white" placeholder="some title" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -203,7 +206,7 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Company Location</FormLabel>
                   <FormControl>
-                    <Input placeholder="City/State/zip" {...field} />
+                    <Input className="dark:text-white" placeholder="City/State/zip" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -248,7 +251,22 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Job Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="some title" {...field} />
+                    <Input className="dark:text-white" placeholder="some title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="companyJobStipend"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Job Stipend</FormLabel>
+                  <FormControl>
+                    <Input className="dark:text-white" placeholder="10,000 INR | Rs 10K | RS 10,000 |INR 10,000" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -282,7 +300,7 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Registration URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="enter registration url" {...field} />
+                    <Input className="dark:text-white" placeholder="enter registration url" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -297,7 +315,7 @@ const AddCompany = () => {
                 <FormItem className="w-full">
                   <FormLabel>Date</FormLabel>
                   <FormControl>
-                    <div className="flex items-center justify-between h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring  text-black cursor-pointer">
+                    <div className="flex dark:text-white items-center justify-between h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring  text-black cursor-pointer">
                       <DatePicker
                         selected={field.value}
                         onChange={(date: Date) => field.onChange(date)}

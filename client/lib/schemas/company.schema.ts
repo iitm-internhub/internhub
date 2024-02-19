@@ -15,6 +15,7 @@ const companyFormSchema = z.object({
   companyJobDescription: z
     .string()
     .min(10, { message: "Job Description cannot be less than 10 characters." }),
+    companyJobStipend:z.string().min(1,{message:"Stipend cannot be less than 0."}),
 
   
 });

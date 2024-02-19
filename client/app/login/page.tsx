@@ -70,7 +70,7 @@ const Login = () => {
           backgroundImage: "url('/images/authentication.avif')",
         }}
       />
-      <div className="m-auto w-full  sm:max-w-sm max-w-xs  bg-white shadow-md rounded-lg">
+      <div className="m-auto w-full dark:bg-[#0a1d45] sm:max-w-sm max-w-xs  bg-white shadow-md rounded-lg">
         <div className="backdrop-blur-xl p-8   rounded-xl bg-white/20 shadow-lg ring-1 ring-black/5 shadow-slate-800">
           <h1 className="text-2xl font-bold text-gray-900 text-center">
             Welcome back to InternHub
@@ -86,12 +86,12 @@ const Login = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="block text-sm font-medium text-gray-700">
+                      <FormLabel className="dark:text-white block text-sm font-medium text-gray-700">
                         Email
                       </FormLabel>
                       <FormControl>
                         <Input
-                          className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                          className="mt-1 w-full dark:text-white rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                           placeholder="someone@gamil.com"
                           {...field}
                         />
@@ -107,13 +107,13 @@ const Login = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="block text-sm font-medium text-gray-700">
+                      <FormLabel className="dark:text-white block text-sm font-medium text-gray-700">
                         Password
                       </FormLabel>
                       <FormControl>
                         <Input
                           type="password"
-                          className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                          className="mt-1 w-full dark:text-white rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                           placeholder="password"
                           {...field}
                         />
@@ -127,7 +127,7 @@ const Login = () => {
                 Login
               </Button>
               <div className="text-center">
-                <p className="mt-2 text-sm text-gray-600">
+                <p className="dark:text-gray-200 mt-2 text-sm text-gray-600 ">
                   Don&apos;t have an account ?
                   <Link
                     className="font-medium text-blue-600 hover:text-blue-500 ml-2"

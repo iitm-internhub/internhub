@@ -81,10 +81,10 @@ const Contact = () => {
     }
   };
   return (
-    <div className="flex items-center justify-center h-[90lvh] bg-gray-100 mt-8 dark:bg-gray-500 px-4">
+    <div className="flex no-scrollbar  items-center justify-center  bg-gray-100 mt-8 dark:bg-gray-900 px-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card>
+          <Card className="shadow-lg shadow-gray-200 h-full my-8 backdrop-blur-lg opacity-70 dark:bg-[#364157]">
             <CardContent>
               <div className="space-y-8">
                 <div className="space-y-2 my-6">
@@ -103,12 +103,12 @@ const Contact = () => {
                         name="enquirerName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="block text-sm font-medium text-gray-700">
+                            <FormLabel className="block text-sm font-medium text-gray-700 dark:text-white">
                               Full Name
                             </FormLabel>
                             <FormControl>
                               <Input
-                                className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                className=" dark:text-white"
                                 placeholder="John Doe"
                                 {...field}
                               />
@@ -125,12 +125,12 @@ const Contact = () => {
                       name="enquirerEmail"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="block text-sm font-medium text-gray-700">
+                          <FormLabel className="block text-sm font-medium text-gray-700 dark:text-white">
                             Email
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                              className="dark:text-white mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                               placeholder="someone@gamil.com"
                               {...field}
                             />
@@ -221,7 +221,7 @@ const Contact = () => {
                       )}
                     />
                   </div>
-                  <Button className="bg-gray-800 text-white" type="submit">
+                  <Button className="bg-gray-800 hover:bg-gray-600 text-white" type="submit">
                     Send message
                   </Button>
                 </div>
