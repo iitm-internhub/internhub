@@ -94,7 +94,7 @@ const Signup = () => {
         return;
       }
 
-      toast.error("something went wrong");
+      toast.error(err.response?.data as string);
     } finally {
       setIsLoading(false);
     }

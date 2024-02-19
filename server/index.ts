@@ -3,6 +3,8 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import connectDatabase from "./db/connectDatabase";
 
+import { universal_limiter } from "./middleware/rateLimiters";
+
 import AuthenticationHandler from "./route/authentication.route";
 import PodcastHandler from "./route/podcast.router";
 import EventHandler from "./route/event.router";
@@ -15,6 +17,7 @@ import AdminInfoHandler from "./admin-route/admin.info.route";
 import AdminEventHandler from "./admin-route/admin.event.route";
 import AdminCompanyEventHandler from "./admin-route/admin.company.route";
 import PodcastEventHandler from "./admin-route/admin.podcast.route";
+
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
 
@@ -28,6 +31,7 @@ const corsOptions = {
 };
 
 // middlewares
+app.use(universal_limiter);
 app.use(express.json());
 app.use(cors(corsOptions));
 

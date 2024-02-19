@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useRef, useState } from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Loader from "../shared/Loader";
 

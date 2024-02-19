@@ -61,7 +61,12 @@ const Login = () => {
     } catch (error) {
       const err = error as AxiosError;
       const data: any = err?.response?.data;
-      toast.error(data?.message);
+      if (data?.message) {
+        toast.error(data?.message);
+        return;
+      }
+
+      toast.error(err.response?.data as string);
     } finally {
       setIsLoading(false);
     }

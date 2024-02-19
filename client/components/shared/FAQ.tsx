@@ -9,12 +9,12 @@ import Link from "next/link";
 
 const FAQ: React.FC = () => {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32" id="faq">
+    <section className="w-full" id="faq">
       <div className="container px-4 md:px-6 flex items-center justify-center flex-col">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
           Frequently Asked Questions
         </h2>
-        <div className="grid place-items-center w-full my-12">
+        <div className="grid place-items-start w-full">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <AccordionTrigger>
@@ -58,8 +58,8 @@ const FAQ: React.FC = () => {
             </AccordionItem>
             <AccordionItem value="item-5">
               <AccordionTrigger>
-                I want to be a part of Internhub as well, is there a way I
-                could contribute?
+                I want to be a part of Internhub as well, is there a way I could
+                contribute?
               </AccordionTrigger>
               <AccordionContent>
                 We would be more than happy to have more helping hands, if you
@@ -81,7 +81,6 @@ const FAQ: React.FC = () => {
                 </Link>
               </AccordionContent>
             </AccordionItem>
-            
           </Accordion>
         </div>
       </div>

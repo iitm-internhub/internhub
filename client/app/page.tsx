@@ -11,9 +11,6 @@ import Loader from "@/components/shared/Loader";
 // import Testimonials from "@/components/shared/Testimonials";
 
 import { useAuth } from "@/components/context/auth";
-import axiosInstance from "@/lib/axios-instance";
-import toast from "react-hot-toast";
-import { AxiosError } from "axios";
 
 const EventsCarousel = dynamic(
   () => import("@/components/shared/EventsCarousel")
@@ -30,7 +27,6 @@ const Main = () => {
   const { userId } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
- 
 
   useEffect(() => {
     setIsLoading(true);
@@ -53,7 +49,7 @@ const Main = () => {
         <div>
           {isAuthenticated ? <EventsCarousel /> : <Banner />}
           <About />
-          <CurrentOppourtunities  />
+          <CurrentOppourtunities />
           <Testimonials />
           <FAQ />
         </div>
