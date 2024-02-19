@@ -120,10 +120,9 @@ const AdminHome: React.FC = () => {
   return (
     <>
       {!users ? (
-        <p className="text-2xl font-medium text-center">No User Found</p>
+        <p className="text-2xl font-medium text-center ">No User Found</p>
       ) : (
-        <>
-          {console.log(users)}
+        <div className="shadow-lg shadow-gray-800 backdrop-blur-lg rounded-sm px-3 my-2">
           <div className="flex items-center justify-start gap-2">
             <Button
               className="cursor-pointer"
@@ -157,7 +156,7 @@ const AdminHome: React.FC = () => {
               </div>
             </div>
           </div>
-          <Table>
+          <Table >
             <TableCaption>All the users on Internhub website.</TableCaption>
             <TableHeader>
               <TableRow>
@@ -195,7 +194,7 @@ const AdminHome: React.FC = () => {
                 ))}
             </TableBody>
           </Table>
-        </>
+        </div>
       )}
     </>
   );

@@ -18,11 +18,13 @@ const createCompanyDetails = async (req: Request, res: Response) => {
       companyLocation,
       companyJobRegistrationLink,
       companyLogo,
+      companyJobStipend,
       companyBanner,
     }: companySchemaInterface = req.body;
 
     if (
       !companyName ||
+      !companyJobStipend||
       !companyDescription ||
       !companyJobTitle ||
       !companyJobDescription ||
@@ -46,6 +48,7 @@ const createCompanyDetails = async (req: Request, res: Response) => {
       companyJobDescription,
       companyJobType,
       companyJobDate,
+      companyJobStipend,
       companyLocation,
       companyJobRegistrationLink,
       companyLogo,

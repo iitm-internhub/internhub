@@ -2,7 +2,7 @@ const AboutUs = () => {
   return (
     <>
       <div className=" w-full py-12 lg:py-24 xl:py-32">
-        <div className="container grid items-center gap-4 px-4 text-center md:gap-10 lg:gap-16 lg:px-20">
+        <div className="container grid items-center gap-8 px-4 text-center md:gap-10 lg:gap-16 lg:px-40">
           <div className="space-y-3">
             <h1 className="p-3 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               About Us
@@ -23,7 +23,7 @@ const AboutUs = () => {
         </div>
         <div className="container max-w-3xl grid items-start gap-6 px-4 py-10 text-left md:py-12 md:gap-8 lg:max-w-5xl lg:grid-cols-2 lg:gap-12 xl:py-16">
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Our Mission</h2>
+            <h2 className="text-2xl font-bold text-center">Our Mission</h2>
             <p className="text-gray-500 md:text-xl/relaxed text-justify xl:text-base/relaxed dark:text-gray-400">
               To empower students with industry-relevant skills, practical
               experience, and professional networks, enabling them to excel in
@@ -31,7 +31,7 @@ const AboutUs = () => {
             </p>
           </div>
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Our Vision</h2>
+            <h2 className="text-2xl font-bold text-center">Our Vision</h2>
             <p className="text-gray-500 md:text-xl/relaxed text-justify xl:text-base/relaxed dark:text-gray-400 backdrop-blur-lg">
               To be recognized as a leading institution for fostering
               innovation, entrepreneurship, and career development through

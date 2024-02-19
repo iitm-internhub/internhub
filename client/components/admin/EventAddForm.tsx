@@ -124,9 +124,9 @@ const EventAddForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 mx-4 max-w-screen-xl xl:mx-auto border rounded-xl shadow-sm lg:mt-10 mt-4"
+        className="space-y-8 mx-4 max-w-screen-xl xl:mx-auto border rounded-xl shadow-lg lg:mt-10 mt-4"
       >
-        <div className="p-4">
+        <div className="p-4 shadow-lg shadow-gray-800">
           <div className="grid gap-6 px-4 sm:grid-cols-2 sm:gap-8">
             <div className="space-y-6 mb-2">
               <div className="space-y-2">
@@ -135,9 +135,9 @@ const EventAddForm = () => {
                   name="eventTitle"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Title</FormLabel>
+                      <FormLabel className="dark:text-white">Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="some title" {...field} />
+                        <Input className="dark:text-white" placeholder="some title" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -150,7 +150,7 @@ const EventAddForm = () => {
                   name="eventDescription"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel className="dark:text-white">Description</FormLabel>
                       <FormControl>
                         <Textarea
                           className="min-h-[128px] resize-none"
@@ -171,9 +171,9 @@ const EventAddForm = () => {
                   name="eventDate"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Date</FormLabel>
+                      <FormLabel className="dark:text-white">Date</FormLabel>
                       <FormControl>
-                        <div className="flex items-center justify-between h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring  text-black cursor-pointer">
+                        <div className="flex items-center justify-between h-9 w-full rounded-md border border-input  px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring  text-black dark:text-white cursor-pointer">
                           <DatePicker
                             selected={field.value}
                             onChange={(date: Date) => field.onChange(date)}
@@ -220,9 +220,9 @@ const EventAddForm = () => {
                   name="eventLocation"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Location</FormLabel>
+                      <FormLabel className="dark:text-white">Location</FormLabel>
                       <FormControl>
-                        <Input placeholder="online / address" {...field} />
+                        <Input className="dark:text-white" placeholder="online / address" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -238,9 +238,9 @@ const EventAddForm = () => {
                 name="eventSpeakers"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Speaker</FormLabel>
+                    <FormLabel className="dark:text-white">Speaker</FormLabel>
                     <FormControl>
-                      <Input placeholder="enter speaker's name" {...field} />
+                      <Input className="dark:text-white" placeholder="enter speaker's name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -253,9 +253,9 @@ const EventAddForm = () => {
                 name="eventRegistrationURL"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Registration URL</FormLabel>
+                    <FormLabel className="dark:text-white">Registration URL</FormLabel>
                     <FormControl>
-                      <Input placeholder="enter registration url" {...field} />
+                      <Input className="dark:text-white" placeholder="enter registration url" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -144,7 +144,7 @@ const AddPodcast = () => {
                     <FormItem>
                       <FormLabel>Podcast Title</FormLabel>
                       <FormControl>
-                        <Input
+                        <Input className="dark:text-white"
                           placeholder="podcast title"
                           {...field}
                           autoComplete="off"
@@ -163,7 +163,7 @@ const AddPodcast = () => {
                     <FormItem>
                       <FormLabel>YouTube URL</FormLabel>
                       <FormControl>
-                        <Input
+                        <Input className="dark:text-white"
                           placeholder="https://www.youtube.com/watch?"
                           {...field}
                           autoComplete="off"
@@ -182,7 +182,7 @@ const AddPodcast = () => {
                     <FormItem className="w-full">
                       <FormLabel>Date</FormLabel>
                       <FormControl>
-                        <div className="flex items-center justify-between h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring  text-black cursor-pointer">
+                        <div className="flex items-center justify-between h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring  text-black dark:text-white cursor-pointer">
                           <DatePicker
                             selected={field.value}
                             onChange={(date: Date) => field.onChange(date)}

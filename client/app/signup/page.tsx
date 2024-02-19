@@ -104,12 +104,12 @@ const Signup = () => {
     <>
       <div className="flex min-h-[91vh] bg-gray-100 dark:bg-[#09090b]">
         <div
-          className="w-1/2 bg-cover bg-center dark:opacity-60 lg:block hidden"
+          className="w-1/2 bg-cover  bg-center dark:opacity-60 lg:block hidden"
           style={{
             backgroundImage: "url('/images/authentication.avif')",
           }}
         />
-        <div className="m-auto w-full sm:max-w-md md:max-w-lg max-w-xs bg-white shadow-md rounded-lg">
+        <div className="dark:bg-[#03112e] dark:text-white m-auto w-full sm:max-w-md md:max-w-lg max-w-xs bg-white shadow-md rounded-lg">
           <div className="backdrop-blur-xl p-8 rounded-xl bg-white/20 shadow-lg ring-1 ring-black/5 shadow-slate-800 dark:shadow-slate-600">
             <h1 className="text-2xl font-bold text-gray-900 text-center">
               Welcome to InternHub
@@ -125,13 +125,13 @@ const Signup = () => {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="block text-sm font-medium text-gray-700">
-                          Username
+                        <FormLabel className="dark:text-white block text-sm font-medium text-gray-700">
+                          Full Name
                         </FormLabel>
                         <FormControl>
                           <Input
-                            className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            placeholder="username"
+                            className="mt-1 w-full dark:text-white border-gray-300  focus:border-indigo-500 focus:ring-indigo-500"
+                            placeholder="Your Name"
                             {...field}
                           />
                         </FormControl>
@@ -146,12 +146,12 @@ const Signup = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="block text-sm font-medium text-gray-700">
+                        <FormLabel className="dark:text-white block text-sm font-medium text-gray-700">
                           Email
                         </FormLabel>
                         <FormControl>
                           <Input
-                            className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            className="mt-1 w-full dark:text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             placeholder="someone@gamil.com"
                             {...field}
                           />
@@ -167,13 +167,13 @@ const Signup = () => {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="block text-sm font-medium text-gray-700">
+                        <FormLabel className="dark:text-white block text-sm font-medium text-gray-700">
                           Password
                         </FormLabel>
                         <FormControl>
                           <Input
                             type="password"
-                            className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            className="mt-1 w-full dark:text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             placeholder="password"
                             {...field}
                           />
@@ -189,7 +189,7 @@ const Signup = () => {
                     name="phone_number"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="block text-sm font-medium text-gray-700">
+                        <FormLabel className="dark:text-white block text-sm font-medium text-gray-700">
                           Phone Number
                         </FormLabel>
                         <FormControl>
@@ -216,7 +216,7 @@ const Signup = () => {
                             onValueChange={field.onChange}
                             defaultValue={field.value}
                           >
-                            <SelectTrigger className="w-full text-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <SelectTrigger className="w-full text-black dark:text-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                               <SelectValue placeholder="College" />
                             </SelectTrigger>
                             <SelectContent>
@@ -256,8 +256,8 @@ const Signup = () => {
                               defaultValue={field.value}
                               {...field}
                             >
-                              <SelectTrigger className="w-full text-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                <SelectValue placeholder="Batch" />
+                              <SelectTrigger className="w-full dark:text-white text-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <SelectValue placeholder="Course" />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectGroup>
@@ -287,7 +287,7 @@ const Signup = () => {
                               defaultValue={field.value}
                               {...field}
                             >
-                              <SelectTrigger className="w-full text-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                              <SelectTrigger className="w-full dark:text-white text-black border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                 <SelectValue placeholder="Semester" />
                               </SelectTrigger>
                               <SelectContent>
@@ -352,7 +352,6 @@ const Signup = () => {
                     />
                   </div>
                 </div>
-
                 {isLoading ? (
                   <div className="py-2 grid place-items-center gap-2">
                     <Loader />
@@ -364,7 +363,7 @@ const Signup = () => {
                   </Button>
                 )}
                 <div className="text-center">
-                  <p className="mt-2 text-sm text-gray-600">
+                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
                     Already have an account ?
                     <Link
                       className="font-medium text-blue-600 hover:text-blue-500 ml-2"
