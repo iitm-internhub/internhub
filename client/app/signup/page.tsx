@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Control, useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import {
@@ -32,9 +32,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Loader from "@/components/shared/Loader";
 
 const Signup = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [batch, setBatch] = useState<string | null>(null);
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
@@ -51,6 +53,7 @@ const Signup = () => {
     setBatch(batchSelected);
   }, [batchSelected]);
   const onSubmit = async (values: z.infer<typeof signupFormSchema>) => {
+    setIsLoading(true);
     const {
       username,
       password,
@@ -75,8 +78,11 @@ const Signup = () => {
         const { authToken, message } = data;
         localStorage.setItem("access_token", authToken);
         toast.success(message);
-        router.push("/");
-        window.location.href = "/";
+
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1 * 1000);
+
         return;
       }
       toast.error("something went wrong");
@@ -89,6 +95,8 @@ const Signup = () => {
       }
 
       toast.error("something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -344,10 +352,16 @@ const Signup = () => {
                     />
                   </div>
                 </div>
-
-                <Button className="w-full bg-gray-800 text-white hover:bg-gray-600">
-                  Signup
-                </Button>
+                {isLoading ? (
+                  <div className="py-2 grid place-items-center gap-2">
+                    <Loader />
+                    <p>Loading..</p>
+                  </div>
+                ) : (
+                  <Button className="w-full bg-gray-800 dark:text-white hover:bg-gray-600">
+                    Signup
+                  </Button>
+                )}
                 <div className="text-center">
                   <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
                     Already have an account ?
