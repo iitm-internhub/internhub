@@ -1,25 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+import { Card, CardTitle } from "../ui/card";
 
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
-import Image from "next/image";
-import { Button } from "../ui/button";
-import Link from "next/link";
 import OpportunitiesCard from "./OpportunitiesCard";
 
 const UPLOADCARE_BASE_URL = "https://ucarecdn.com/";
@@ -97,12 +83,7 @@ const CurrentOppourtunities: React.FC = () => {
           ) : (
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-6 max-w-screen-xl mx-auto">
               {oppurtunities.map((oppurtunitie: CompanyInterface) => (
-                <>
-                       {
-
-                      localStorage.setItem("companies", JSON.stringify(oppurtunitie)) }
-
-               <OpportunitiesCard
+                <OpportunitiesCard
                   key={oppurtunitie._id}
                   companyId={oppurtunitie._id}
                   stipend={oppurtunitie.companyJobStipend}
@@ -116,10 +97,13 @@ const CurrentOppourtunities: React.FC = () => {
                   companyJobType={oppurtunitie.companyJobType}
                   companyJobDate={oppurtunitie.companyJobDate}
                   companyLocation={oppurtunitie.companyLocation}
-                  companyJobRegistrationLink={oppurtunitie.companyJobRegistrationLink}
-                  companyBanner={UPLOADCARE_BASE_URL + oppurtunitie?.companyBanner + "/"}
-                  />
-                  </>
+                  companyJobRegistrationLink={
+                    oppurtunitie.companyJobRegistrationLink
+                  }
+                  companyBanner={
+                    UPLOADCARE_BASE_URL + oppurtunitie?.companyBanner + "/"
+                  }
+                />
               ))}
             </div>
           )}

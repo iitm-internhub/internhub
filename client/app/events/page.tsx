@@ -40,7 +40,7 @@ const Event = () => {
         setIsLoading(true);
         const { data } = await axiosInstance.get("/api/v1/event/all");
 
-        if (data?.events) {
+        if (data?.events.length > 0) {
           setEvents(data.events);
         }
       } catch (error) {

@@ -35,7 +35,7 @@ const Podcast = () => {
         setIsLoading(true);
         const { data } = await axiosInstance.get("/api/v1/podcast/all");
 
-        if (data?.podcasts) {
+        if (data?.podcasts.length > 0) {
           setPodcasts(data.podcasts);
         }
       } catch (error) {

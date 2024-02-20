@@ -79,9 +79,8 @@ const OpportunitiesCard: React.FC<OpportunitiesCardProps> = ({
       setBgColor(color);
     };
 
-    randomColor(0, colors.length);
+    randomColor(0, colors.length - 1);
   }, []);
-
   return (
     <Card className="w-full rounded-lg p-2">
       <CardHeader className="rounded-t-lg" style={{ backgroundColor: bgColor }}>
@@ -130,8 +129,12 @@ const OpportunitiesCard: React.FC<OpportunitiesCardProps> = ({
               <HoverCardContent>{companyDescription}</HoverCardContent>
             </HoverCard>
           </div>
-          <Button onClick={ ()=> localStorage.setItem("companies", JSON.stringify(CompanyDetail))
-} className="text-white">
+          <Button
+            onClick={() =>
+              localStorage.setItem("companies", JSON.stringify(CompanyDetail))
+            }
+            className="text-white"
+          >
             <Link href={`/company/${companyId}`}>View</Link>
           </Button>
         </div>
