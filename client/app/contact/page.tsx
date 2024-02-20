@@ -79,7 +79,7 @@ const Contact = () => {
     }
   };
   return (
-    <div className="flex no-scrollbar  items-center justify-center  bg-gray-100 mt-8 dark:bg-gray-900 px-4">
+    <div className="flex no-scrollbar no-scrollbar h-[100dvh] items-center justify-center  bg-gray-100 mt-8 dark:bg-gray-900 px-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <Card className="shadow-lg shadow-gray-200 h-full my-8 backdrop-blur-lg opacity-70 dark:bg-[#364157]">
