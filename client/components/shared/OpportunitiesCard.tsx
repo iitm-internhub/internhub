@@ -12,6 +12,12 @@ import { Button } from "@/components/ui/button";
 import BookmarkIcon from "@/public/icons/bookmark.svg";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
+import Link from "next/link";
 
 const colors = [
   "#F9F6FE",
@@ -23,19 +29,48 @@ const colors = [
 ];
 
 interface OpportunitiesCardProps {
-  _id?: string;
+  companyId: string;
   stipend: string;
   title: string;
-  companyName: string;
   companyImage: string;
+  companyName: string;
+  companyDescription: string;
+  companyJobDescription: string;
+  companyJobType: string;
+  companyJobDate: Date;
+  companyLocation: string;
+  companyBanner: string;
+  companyJobRegistrationLink: string;
 }
 
 const OpportunitiesCard: React.FC<OpportunitiesCardProps> = ({
+  companyId,
   stipend,
   title,
   companyName,
   companyImage,
+  companyDescription,
+  companyJobDescription,
+  companyJobType,
+  companyJobDate,
+  companyLocation,
+  companyBanner,
+  companyJobRegistrationLink,
 }) => {
+  const CompanyDetail = {
+    companyId,
+    stipend,
+    title,
+    companyName,
+    companyImage,
+    companyDescription,
+    companyJobDescription,
+    companyJobType,
+    companyJobDate,
+    companyLocation,
+    companyBanner,
+    companyJobRegistrationLink,
+  };
   const [bgColor, setBgColor] = useState<string>("#FEFCEA");
 
   useEffect(() => {
@@ -50,7 +85,7 @@ const OpportunitiesCard: React.FC<OpportunitiesCardProps> = ({
   return (
     <Card className="w-full rounded-lg p-2">
       <CardHeader className="rounded-t-lg" style={{ backgroundColor: bgColor }}>
-        <CardTitle className="text-lg font-semibold flex justify-between items-center w-full">
+        <CardTitle className="text-lg dark:text-black font-semibold flex justify-between items-center w-full">
           ₹ {stipend} / month
           <Image
             alt="bookmark"
@@ -65,7 +100,14 @@ const OpportunitiesCard: React.FC<OpportunitiesCardProps> = ({
         className="h-[25vh] grid place-items-center"
         style={{ backgroundColor: bgColor }}
       >
-        <div className="text-4xl">{title}</div>
+        <HoverCard>
+          <HoverCardTrigger>
+            <div className="text-4xl text-center dark:text-black">{title}</div>
+          </HoverCardTrigger>
+          <HoverCardContent className="min-w-[40dvw]">
+            {companyJobDescription}
+          </HoverCardContent>
+        </HoverCard>
       </CardContent>
       <CardFooter>
         <div className="flex items-center justify-between w-full mt-6">
@@ -77,11 +119,21 @@ const OpportunitiesCard: React.FC<OpportunitiesCardProps> = ({
               width={1000}
               className="aspect-square border border-gray-100 rounded-full cursor-pointer text-center h-12 w-12"
             />
-            <span className="font-semibold text-base cursor-pointer line-clamp-1">
-              {companyName}
-            </span>
+
+            <HoverCard>
+              <HoverCardTrigger>
+                {" "}
+                <span className="font-semibold text-base cursor-pointer line-clamp-1">
+                  {companyName}
+                </span>
+              </HoverCardTrigger>
+              <HoverCardContent>{companyDescription}</HoverCardContent>
+            </HoverCard>
           </div>
-          <Button className="text-white">View</Button>
+          <Button onClick={ ()=> localStorage.setItem("companies", JSON.stringify(CompanyDetail))
+} className="text-white">
+            <Link href={`/company/${companyId}`}>View</Link>
+          </Button>
         </div>
       </CardFooter>
     </Card>

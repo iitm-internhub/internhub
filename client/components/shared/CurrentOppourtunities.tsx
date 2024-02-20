@@ -25,7 +25,7 @@ import OpportunitiesCard from "./OpportunitiesCard";
 const UPLOADCARE_BASE_URL = "https://ucarecdn.com/";
 
 interface CompanyInterface {
-  id: string;
+  _id: string;
 
   companyName: string;
   companyDescription: string;
@@ -97,15 +97,29 @@ const CurrentOppourtunities: React.FC = () => {
           ) : (
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-6 max-w-screen-xl mx-auto">
               {oppurtunities.map((oppurtunitie: CompanyInterface) => (
-                <OpportunitiesCard
-                  key={oppurtunitie.id}
+                <>
+                       {
+
+                      localStorage.setItem("companies", JSON.stringify(oppurtunitie)) }
+
+               <OpportunitiesCard
+                  key={oppurtunitie._id}
+                  companyId={oppurtunitie._id}
                   stipend={oppurtunitie.companyJobStipend}
                   title={oppurtunitie.companyJobTitle}
                   companyImage={
                     UPLOADCARE_BASE_URL + oppurtunitie?.companyLogo + "/"
                   }
                   companyName={oppurtunitie.companyName}
-                />
+                  companyDescription={oppurtunitie.companyDescription}
+                  companyJobDescription={oppurtunitie.companyJobDescription}
+                  companyJobType={oppurtunitie.companyJobType}
+                  companyJobDate={oppurtunitie.companyJobDate}
+                  companyLocation={oppurtunitie.companyLocation}
+                  companyJobRegistrationLink={oppurtunitie.companyJobRegistrationLink}
+                  companyBanner={UPLOADCARE_BASE_URL + oppurtunitie?.companyBanner + "/"}
+                  />
+                  </>
               ))}
             </div>
           )}
