@@ -67,7 +67,7 @@ const CompanyDetail = () => {
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
             <div className="flex flex-col gap-4 dark:shadow-gray-800 shadow-lg backdrop-blur-lg rounded-md p-4">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                {CompanyDetails?.companyJobTitle}
+                {CompanyDetails?.title}
               </h2>
               <p className="text-gray-500 dark:text-gray-400">
                 {CompanyDetails.companyJobType} <br />{" "}
