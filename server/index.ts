@@ -20,6 +20,7 @@ import PodcastEventHandler from "./admin-route/admin.podcast.route";
 
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
+app.set("trust proxy", 1); // trust first proxy
 
 app.listen(PORT, () => {
   console.log(`now listening on PORT: ${PORT}`);
