@@ -60,7 +60,6 @@ const Support = () => {
       supportUserType,
       supportUserMessage,
     } = values;
-    console.log(values);
     try {
       const { data } = await axiosInstance.post("/api/v1/auth/support", {
         supportUserName: supportUserName,

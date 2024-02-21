@@ -42,7 +42,6 @@ const Admin = () => {
         password: password,
       });
 
-      console.log(data);
 
       if (data?.success) {
         localStorage.setItem("admin_access_token", data?.authToken);

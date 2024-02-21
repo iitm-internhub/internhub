@@ -113,7 +113,7 @@ const Signup = () => {
             <h1 className="text-2xl font-bold text-gray-900 text-center">
               Welcome to InternHub
             </h1>
-            {isSignup && <p>Please verify your email.</p>}
+            {isSignup && <p className="m-4 text-center shadow-lg p-2 rounded-md text-blue-500 font-bold shadow-red-600">Please verify your email.</p>}
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
