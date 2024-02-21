@@ -58,7 +58,7 @@ const createPodcastDetails = async (req: Request, res: Response) => {
       event: podcastCreated,
     });
   } catch (err) {
-    console.log("error while uploading events");
+    console.log("error while uploading podcasts");
     handleError(err, res);
   }
 };

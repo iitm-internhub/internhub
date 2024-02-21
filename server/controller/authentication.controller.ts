@@ -7,6 +7,13 @@ import generateToken, {
 import bcrypt from "bcrypt";
 import { sendMail } from "../helper/mailer";
 
+const VERIFY_BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? process.env.USE_LOCAL === "true"
+      ? process.env.LOCALHOST_CLIENT_URL
+      : process.env.LOCALHOST_CODESPACE_CLIENT_URL
+    : process.env.PRODUCTION_CLIENT_URL;
+
 const Signup = async (req: Request, res: Response) => {
   try {
     const {
@@ -72,7 +79,7 @@ const Signup = async (req: Request, res: Response) => {
 
         const user = await newUser.save();
 
-        const msg = `<p> Hello ${username} welcome, Please <a href="http://localhost:3000/mail-verification?id=${user._id}&token=${userAuthVerificationToken}">verify</a> your mail. </p>`;
+        const msg = `<p> Hello ${username} welcome, Please <a href="${VERIFY_BASE_URL}/mail-verification?id=${user._id}&token=${userAuthVerificationToken}">verify</a> your mail. </p>`;
 
         sendMail(email, "Mail verification", msg, res);
 
