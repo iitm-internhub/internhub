@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
       ? "http:localhost:8080" 
-      : "http://internhub-server.ap-south-1.elasticbeanstalk.com/",
+      : "https://tender-cod-swimsuit.cyclic.app/",
   timeout: 5000,
 });
 
