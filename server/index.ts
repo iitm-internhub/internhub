@@ -12,6 +12,8 @@ import UserHandler from "./route/user.route";
 import CompanyEventHandler from "./route/company.router";
 import ContactHandler from "./route/contact.route";
 
+import VerificationHandler from "./route/verification.route";
+
 import AdminAuthHandler from "./admin-route/admin.auth.route";
 import AdminInfoHandler from "./admin-route/admin.info.route";
 import AdminEventHandler from "./admin-route/admin.event.route";
@@ -34,6 +36,9 @@ const corsOptions = {
 app.use(universal_limiter);
 app.use(express.json());
 app.use(cors(corsOptions));
+
+// user verification route
+app.use("/api/v1/verify", VerificationHandler);
 
 // user server routes
 app.use("/api/v1/auth", AuthenticationHandler);

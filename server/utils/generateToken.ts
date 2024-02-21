@@ -30,5 +30,25 @@ const generateAdminToken = async (_id: string | unknown, res: Response) => {
   }
 };
 
+const generateVerificationToken = async (res: Response) => {
+  try {
+    const JWT_VERIFICATION_SECRET_KEY: string = String(
+      process.env.JWT_VERIFICATION_SECRET_KEY
+    );
+
+    const token = await jwt.sign(
+      { verified: true },
+      JWT_VERIFICATION_SECRET_KEY,
+      {
+        expiresIn: "1m",
+      }
+    );
+
+    return token;
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
 export default generateToken;
-export { generateAdminToken };
+export { generateAdminToken, generateVerificationToken };

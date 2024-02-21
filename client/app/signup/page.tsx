@@ -38,6 +38,8 @@ const Signup = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [batch, setBatch] = useState<string | null>(null);
+  const [isSignup, setIsSignup] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -75,13 +77,10 @@ const Signup = () => {
         semester: semester,
       });
       if (data?.success && data?.success === true) {
-        const { authToken, message } = data;
-        localStorage.setItem("access_token", authToken);
+        const { message } = data;
         toast.success(message);
 
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 1 * 1000);
+        setIsSignup(true);
 
         return;
       }
@@ -114,6 +113,7 @@ const Signup = () => {
             <h1 className="text-2xl font-bold text-gray-900 text-center">
               Welcome to InternHub
             </h1>
+            {isSignup && <p>Please verify your email.</p>}
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}

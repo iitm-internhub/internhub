@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import { handleError } from "../error/handleError";
 import User, { UserSchemaInterface } from "../model/user.model";
-import generateToken from "../utils/generateToken";
+import generateToken, {
+  generateVerificationToken,
+} from "../utils/generateToken";
 import bcrypt from "bcrypt";
+import { sendMail } from "../helper/mailer";
 
 const Signup = async (req: Request, res: Response) => {
   try {
@@ -51,29 +54,33 @@ const Signup = async (req: Request, res: Response) => {
           handleError(err, res);
         }
 
+        const userAuthVerificationToken: string | undefined =
+          await generateVerificationToken(res);
+
         // otherwise create user
         const newUser = new User({
           username: username,
           password: hash,
           email: email,
           phone_number: phone_number,
+          isVerified: false,
+          verificationToken: userAuthVerificationToken,
           college: college,
           semester: semester,
           batch: batch,
         });
 
         const user = await newUser.save();
-        const userAuthToken: string | unknown = await generateToken(
-          user._id,
-          res
-        );
+
+        const msg = `<p> Hello ${username} welcome, Please <a href="http://localhost:3000/mail-verification?id=${user._id}&token=${userAuthVerificationToken}">verify</a> your mail. </p>`;
+
+        sendMail(email, "Mail verification", msg, res);
 
         if (user) {
           return res.status(201).json({
             success: true,
             message: "user registered successfully",
             user: user,
-            authToken: userAuthToken,
           });
         }
 
