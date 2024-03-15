@@ -79,10 +79,10 @@ const Contact = () => {
     }
   };
   return (
-    <div className="flex no-scrollbar no-scrollbar h-[100dvh] items-center justify-center  bg-gray-100 mt-8 dark:bg-gray-900 px-4">
+    <div className="flex no-scrollbar no-scrollbar h-[90dvh] items-center justify-center px-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card className="shadow-lg shadow-gray-200 h-full my-8 backdrop-blur-lg opacity-70 dark:bg-[#364157]">
+          <Card className="shadow-lg shadow-gray-800 h-full my-8 backdrop-blur-lg">
             <CardContent>
               <div className="space-y-8">
                 <div className="space-y-2 my-6">
@@ -128,7 +128,7 @@ const Contact = () => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className="dark:text-white mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                              className="dark:text-white mt-1 w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                               placeholder="someone@gamil.com"
                               {...field}
                             />
@@ -225,9 +225,7 @@ const Contact = () => {
                       <p className="font-medium">Loading</p>
                     </div>
                   ) : (
-                    <Button className="bg-gray-800 text-white" type="submit">
-                      Send message
-                    </Button>
+                    <Button type="submit">Send message</Button>
                   )}
                 </div>
               </div>

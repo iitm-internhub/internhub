@@ -66,11 +66,11 @@ const createPodcastDetails = async (req: Request, res: Response) => {
 const getAllPodcasts = async (req: Request, res: Response) => {
   try {
     if (cache.has("podcasts-admin")) {
-      const events = cache.get("podcasts-admin");
+      const podcasts = cache.get("podcasts-admin");
       return res.status(200).json({
         sucess: true,
         message: "all events fetched successfully",
-        events,
+        podcasts,
       });
     }
 

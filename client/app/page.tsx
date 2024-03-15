@@ -11,6 +11,7 @@ import Loader from "@/components/shared/Loader";
 // import Testimonials from "@/components/shared/Testimonials";
 
 import { useAuth } from "@/components/context/auth";
+import Footer from "@/components/shared/Footer";
 
 const EventsCarousel = dynamic(
   () => import("@/components/shared/EventsCarousel")
@@ -44,14 +45,18 @@ const Main = () => {
   }
 
   return (
-    <main>
+    <main className="bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
       {!isLoading && (
         <div>
-          {isAuthenticated ? <EventsCarousel /> : <Banner />}
+          {/* {isAuthenticated ? <EventsCarousel /> : <Banner />} */}
+          <Banner />
           <About />
           <CurrentOppourtunities />
           <Testimonials />
           <FAQ />
+          <div className="mt-32">
+            <Footer />
+          </div>
         </div>
       )}
     </main>

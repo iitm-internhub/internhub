@@ -26,7 +26,7 @@ const AdminRootCompany: React.FC = () => {
   const [isActiveTab, setIsActiveTab] = useState<string>("home");
 
   const handleAdminLogout = () => {
-    localStorage.removeItem("admin_access_token");
+    localStorage.removeItem("company_access_token");
     location.reload();
   };
 
@@ -46,7 +46,7 @@ const AdminRootCompany: React.FC = () => {
           className="cursor-pointer"
         >
           <div className="flex items-center justify-center gap-2">
-            <span>Logout Admin</span>
+            <span>Logout Company</span>
             <Image
               src={LogoutIcon}
               alt="logout_icon"
@@ -57,9 +57,7 @@ const AdminRootCompany: React.FC = () => {
           </div>
         </Button>
       </div>
-      <div className="">
-       
-      </div>
+      <div className=""></div>
     </section>
   );
 };

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Loader from "@/components/shared/Loader";
-import Link from "next/link"
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
@@ -42,7 +41,6 @@ const Admin = () => {
         password: password,
       });
 
-
       if (data?.success) {
         localStorage.setItem("admin_access_token", data?.authToken);
         toast.success(`${data.message}`);
@@ -65,13 +63,14 @@ const Admin = () => {
   return (
     <>
       {!isAdmin ? (
-       <><AdminLogin
-          setUsername={setUsername}
-          setPassword={setPassword}
-          username={username}
-          password={password}
-          handleSubmit={handleSubmit}
-        />
+        <>
+          <AdminLogin
+            setUsername={setUsername}
+            setPassword={setPassword}
+            username={username}
+            password={password}
+            handleSubmit={handleSubmit}
+          />
         </>
       ) : (
         <AdminRoot />

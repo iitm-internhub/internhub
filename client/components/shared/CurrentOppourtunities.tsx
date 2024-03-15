@@ -49,7 +49,6 @@ const CurrentOppourtunities: React.FC = () => {
           toast(data?.message);
           return;
         }
-        toast("some went wrong");
       } finally {
         setIsLoading(false);
       }
@@ -75,11 +74,9 @@ const CurrentOppourtunities: React.FC = () => {
         </h2>
         <div>
           {!oppurtunities ? (
-            <Card className="mt-10">
-              <CardTitle className="p-3 m-4 grid place-items-center text-xl">
-                Coming Sooner than you expect
-              </CardTitle>
-            </Card>
+            <p className="text-center my-6 text-2xl font-medium">
+              Comming sooner than you expect
+            </p>
           ) : (
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-6 max-w-screen-xl mx-auto">
               {oppurtunities.map((oppurtunitie: CompanyInterface) => (

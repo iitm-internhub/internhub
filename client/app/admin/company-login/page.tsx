@@ -8,12 +8,18 @@ import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
-const AdminRootCompany = dynamic(() => import("@/components/admin/AdminRootCompany"), {
-  loading: Loader,
-});
-const AdminLoginCompany = dynamic(() => import("@/components/admin/AdminLoginCompany"), {
-  loading: Loader,
-});
+const AdminRootCompany = dynamic(
+  () => import("@/components/admin/AdminRootCompany"),
+  {
+    loading: Loader,
+  }
+);
+const AdminLoginCompany = dynamic(
+  () => import("@/components/admin/AdminLoginCompany"),
+  {
+    loading: Loader,
+  }
+);
 
 const Admin = () => {
   const [isAdmin, setIsAdmin] = useState<Boolean>(false);
@@ -22,7 +28,7 @@ const Admin = () => {
 
   useEffect(() => {
     const checkIsAuthenticated = () => {
-      const admin_access_token = localStorage.getItem("admin_access_token");
+      const admin_access_token = localStorage.getItem("company_access_token");
       if (admin_access_token) {
         setIsAdmin(true);
       }
@@ -37,14 +43,16 @@ const Admin = () => {
         return toast.error("please provide username and password");
       }
 
-      const { data } = await axiosInstance.post("/api/v1/auth-admin-company/login", {
-        username: username,
-        password: password,
-      });
-
+      const { data } = await axiosInstance.post(
+        "/api/v1/auth-admin-company/login",
+        {
+          username: username,
+          password: password,
+        }
+      );
 
       if (data?.success) {
-        localStorage.setItem("admin_access_token", data?.authToken);
+        localStorage.setItem("company_access_token", data?.authToken);
         toast.success(`${data.message}`);
         setIsAdmin(true);
         return;

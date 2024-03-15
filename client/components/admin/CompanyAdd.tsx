@@ -95,7 +95,7 @@ const AddCompany = () => {
       companyJobDate: new Date(),
       companyLocation: "",
       companyJobRegistrationLink: "",
-      companyJobStipend:"",
+      companyJobStipend: "",
     },
   });
   const onSubmit = async (values: z.infer<typeof companyFormSchema>) => {
@@ -109,7 +109,7 @@ const AddCompany = () => {
         companyJobDate,
         companyLocation,
         companyJobRegistrationLink,
-        companyJobStipend
+        companyJobStipend,
       } = values;
 
       if (!companyLogo || !companyBanner) {
@@ -131,7 +131,7 @@ const AddCompany = () => {
           companyJobRegistrationLink,
           companyLogo,
           companyBanner,
-          companyJobStipend
+          companyJobStipend,
         },
         {
           headers: {
@@ -172,7 +172,11 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Company Name</FormLabel>
                   <FormControl>
-                    <Input className="dark:text-white" placeholder="some title" {...field} />
+                    <Input
+                      className="dark:text-white"
+                      placeholder="some title"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -206,7 +210,11 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Company Location</FormLabel>
                   <FormControl>
-                    <Input className="dark:text-white" placeholder="City/State/zip" {...field} />
+                    <Input
+                      className="dark:text-white"
+                      placeholder="City/State/zip"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -251,7 +259,11 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Job Title</FormLabel>
                   <FormControl>
-                    <Input className="dark:text-white" placeholder="some title" {...field} />
+                    <Input
+                      className="dark:text-white"
+                      placeholder="some title"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -266,7 +278,11 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Job Stipend</FormLabel>
                   <FormControl>
-                    <Input className="dark:text-white" placeholder="10,000 INR | Rs 10K | RS 10,000 |INR 10,000" {...field} />
+                    <Input
+                      className="dark:text-white"
+                      placeholder="10,000 INR | Rs 10K | RS 10,000 |INR 10,000"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -300,7 +316,11 @@ const AddCompany = () => {
                 <FormItem>
                   <FormLabel>Registration URL</FormLabel>
                   <FormControl>
-                    <Input className="dark:text-white" placeholder="enter registration url" {...field} />
+                    <Input
+                      className="dark:text-white"
+                      placeholder="enter registration url"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -6,7 +6,7 @@ import axios from "axios";
 const axiosInstance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
-      ? "https://organic-orbit-wxgvpxvv79g25p7g-8080.app.github.dev/"
+      ? "http://localhost:8080/"
       : "https://tender-cod-swimsuit.cyclic.app/",
   timeout: 5000,
 });

@@ -3,16 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import Event from "@/public/images/event.jpeg";
-import DeleteIcon from "@/public/icons/delete.svg";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
 
-import PlayIcon from "@/public/icons/play.svg";
-import DownloadIcon from "@/public/icons/download.svg";
 import LocationIcon from "@/public/icons/map.svg";
 import CalendarIcon from "@/public/icons/calendar.svg";
-import PlusIcon from "@/public/icons/plus.svg";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";

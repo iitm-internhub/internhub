@@ -4,6 +4,6 @@ import { admin_login_limiter } from "../middleware/rateLimiters";
 
 const router = express.Router();
 
-router.post("/login", admin_login_limiter, Login);
+router.post("/login", Login);
 
 export default router;

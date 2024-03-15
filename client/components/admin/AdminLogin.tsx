@@ -24,7 +24,12 @@ const AdminLogin: React.FC<AdminLoginProps> = ({
       <div className="w-full max-w-md mx-auto space-y-8 p-4 rounded-lg backdrop-blur-lg shadow-lg shadow-gray-700">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">Admin Panel</h1>
-        <Link className="bg-gray-600 text-white dark:text-black rounded-md p-1  m-1 justify-center items-center" href="/admin/company">Company Login</Link>
+          <Link
+            className="bg-gray-600 text-white dark:text-black rounded-md p-1  m-1 justify-center items-center"
+            href="/admin/company-login"
+          >
+            Company Login
+          </Link>
         </div>
         <div className="space-y-4">
           <div className="space-y-2">

@@ -12,7 +12,7 @@ const About: React.FC = () => {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 About the Internhub
               </h2>
-              <p className="max-w-[600px] text-gray-700 dark:text-gray-300 md:text-xl">
+              <p className="max-w-[600px] text-gray-700 dark:text-gray-300 md:text-xl text-justify">
                 The Internship Cell at Institute of Innovation in Technology &
                 Management serves as a bridge between academia and industry,
                 facilitating valuable experiential learning opportunities for

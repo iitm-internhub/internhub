@@ -7,7 +7,7 @@ const AboutUs = () => {
             <h1 className="p-3 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               About Us
             </h1>
-            <p className="text-gray-500 md:text-xl/relaxed text-justify xl:text-base/relaxed dark:text-gray-400">
+            <p className="text-gray-500 md:text-xl/relaxed xl:text-base/relaxed dark:text-gray-400 text-justify">
               The Internship Cell at Institute of Innovation in Technology &
               Management serves as a bridge between academia and industry,
               facilitating valuable experiential learning opportunities for
