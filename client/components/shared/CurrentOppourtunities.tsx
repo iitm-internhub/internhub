@@ -49,7 +49,7 @@ const CurrentOppourtunities: React.FC = () => {
           toast(data?.message);
           return;
         }
-        toast("some went wrong");
+        toast("something went wrong");
       } finally {
         setIsLoading(false);
       }

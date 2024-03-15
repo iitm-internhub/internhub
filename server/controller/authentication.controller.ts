@@ -79,7 +79,7 @@ const Signup = async (req: Request, res: Response) => {
 
         const user = await newUser.save();
 
-        const msg = `<p> Hello ${username} welcome, Please <a href="${VERIFY_BASE_URL}/mail-verification?id=${user._id}&token=${userAuthVerificationToken}">verify</a> your mail. </p>`;
+        const msg = `<p> Hello ${username} welcome, Please <a href="http://localhost:3000/mail-verification?id=${user._id}&token=${userAuthVerificationToken}">verify</a> your mail. </p>`;
 
         sendMail(email, "Mail verification", msg, res);
 
