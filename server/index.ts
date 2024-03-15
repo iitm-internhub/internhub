@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import connectDatabase from "./db/connectDatabase";
 
+
 import { universal_limiter } from "./middleware/rateLimiters";
 
 import AuthenticationHandler from "./route/authentication.route";
@@ -19,7 +20,7 @@ import AdminInfoHandler from "./admin-route/admin.info.route";
 import AdminEventHandler from "./admin-route/admin.event.route";
 import AdminCompanyEventHandler from "./admin-route/admin.company.route";
 import PodcastEventHandler from "./admin-route/admin.podcast.route";
-
+import AdminCompanyHandler from "./admin-route/admin.company-auth.route";
 const PORT: number = Number(process.env.PORT) || 9090;
 const app: Express = express();
 app.set("trust proxy", 1); // trust first proxy
@@ -55,7 +56,7 @@ app.use("/api/v1/info-admin", AdminInfoHandler);
 app.use("/api/v1/event-admin", AdminEventHandler);
 app.use("/api/v1/company-admin", AdminCompanyEventHandler);
 app.use("/api/v1/podcast-admin", PodcastEventHandler);
-
+app.use("/api/v1/auth-admin-company", AdminCompanyHandler);
 connectDatabase();
 
 app.get("/", (req: Request, res: Response) => {

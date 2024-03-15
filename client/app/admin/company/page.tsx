@@ -3,15 +3,15 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Loader from "@/components/shared/Loader";
-import Link from "next/link"
+
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
-const AdminRoot = dynamic(() => import("@/components/admin/AdminRoot"), {
+const AdminRootCompany = dynamic(() => import("@/components/admin/AdminRootCompany"), {
   loading: Loader,
 });
-const AdminLogin = dynamic(() => import("@/components/admin/AdminLogin"), {
+const AdminLoginCompany = dynamic(() => import("@/components/admin/AdminLoginCompany"), {
   loading: Loader,
 });
 
@@ -37,7 +37,7 @@ const Admin = () => {
         return toast.error("please provide username and password");
       }
 
-      const { data } = await axiosInstance.post("/api/v1/auth-admin/login", {
+      const { data } = await axiosInstance.post("/api/v1/auth-admin-company/login", {
         username: username,
         password: password,
       });
@@ -65,16 +65,15 @@ const Admin = () => {
   return (
     <>
       {!isAdmin ? (
-       <><AdminLogin
+        <AdminLoginCompany
           setUsername={setUsername}
           setPassword={setPassword}
           username={username}
           password={password}
           handleSubmit={handleSubmit}
         />
-        </>
       ) : (
-        <AdminRoot />
+        <AdminRootCompany />
       )}
     </>
   );
