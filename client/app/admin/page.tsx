@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Loader from "@/components/shared/Loader";
-
+import Link from "next/link"
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
@@ -65,13 +65,14 @@ const Admin = () => {
   return (
     <>
       {!isAdmin ? (
-        <AdminLogin
+       <><AdminLogin
           setUsername={setUsername}
           setPassword={setPassword}
           username={username}
           password={password}
           handleSubmit={handleSubmit}
         />
+        </>
       ) : (
         <AdminRoot />
       )}
