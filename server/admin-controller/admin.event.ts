@@ -45,8 +45,8 @@ const createEventDetails = async (req: Request, res: Response) => {
 
     const eventCreated = await newEvent.save();
 
-    if (cache.has("events")) {
-      cache.del("events");
+    if (cache.has("events-admin")) {
+      cache.del("events-admin");
     }
 
     if (Object.keys(eventCreated).length === 0) {
@@ -92,4 +92,32 @@ const getAllEvents = async (req: Request, res: Response) => {
   }
 };
 
-export { createEventDetails, getAllEvents };
+const deleteEvent = async (req: Request, res: Response) => {
+  const eventID = req.params.eventID;
+  console.log(eventID);
+
+  try {
+    const isPodcastExists = await Event.findById(eventID);
+
+    if (!isPodcastExists || Object.keys(isPodcastExists).length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Event not found.",
+      });
+    }
+
+    await Event.findByIdAndDelete(eventID);
+    if (cache.has("events-admin")) {
+      cache.del("events-admin");
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Event deleted.",
+    });
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
+export { createEventDetails, getAllEvents, deleteEvent };

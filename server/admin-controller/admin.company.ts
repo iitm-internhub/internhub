@@ -24,7 +24,7 @@ const createCompanyDetails = async (req: Request, res: Response) => {
 
     if (
       !companyName ||
-      !companyJobStipend||
+      !companyJobStipend ||
       !companyDescription ||
       !companyJobTitle ||
       !companyJobDescription ||
@@ -57,8 +57,8 @@ const createCompanyDetails = async (req: Request, res: Response) => {
 
     const companyCreated = await newCompany.save();
 
-    if (cache.has("company")) {
-      cache.del("company");
+    if (cache.has("company-admin")) {
+      cache.del("company-admin");
     }
 
     if (Object.keys(companyCreated).length === 0) {
@@ -83,6 +83,8 @@ const getAllCompanies = async (req: Request, res: Response) => {
   try {
     const companies = await Company.find({});
 
+    cache.set("company-admin", companies, 60);
+
     return res.status(200).json({
       sucess: true,
       message: "all companys fetched successfully",
@@ -93,4 +95,31 @@ const getAllCompanies = async (req: Request, res: Response) => {
   }
 };
 
-export { createCompanyDetails, getAllCompanies };
+const deleteCompany = async (req: Request, res: Response) => {
+  const compnayID = req.params.companyID;
+
+  try {
+    const isPodcastExists = await Company.findById(compnayID);
+
+    if (!isPodcastExists || Object.keys(isPodcastExists).length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Company not found.",
+      });
+    }
+
+    await Company.findByIdAndDelete(compnayID);
+    if (cache.has("events-admin")) {
+      cache.del("events-admin");
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Company deleted.",
+    });
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
+export { createCompanyDetails, getAllCompanies, deleteCompany };

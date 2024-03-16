@@ -16,7 +16,7 @@ import axiosInstance from "@/lib/axios-instance";
 import Loader from "../shared/Loader";
 
 interface EventInterface {
-  id: string;
+  _id: string;
   eventTitle: string;
   eventDescription: string;
   eventDate: Date;
@@ -69,6 +69,28 @@ const AdminEventPanel = () => {
     );
   }
 
+  const handleDeleteEvent = async (eventID: string) => {
+    try {
+      const token = localStorage.getItem("admin_access_token");
+      const { data } = await axiosInstance.delete(
+        `/api/v1/event-admin/delete/${eventID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      const data: any = err?.response?.data;
+      toast.error(data?.message);
+    }
+  };
+
   return (
     <>
       <Link href="/admin/event">
@@ -87,10 +109,10 @@ const AdminEventPanel = () => {
         </p>
       ) : (
         <div className="grid sm:grid-cols-2 mb-4 md:grid-cols-3 grid-cols-1 gap-6">
-          {events.map((event) => (
+          {events.map((event: EventInterface) => (
             <Card
               className="w-full  shadow-lg backdrop-blur-lg shadow-[#ccbb82] dark:shadow-blue-900 max-w-sm mx-auto"
-              key={event.id}
+              key={event._id}
             >
               <div className="relative">
                 <div className="aspect-[16/9] rounded-t-lg overflow-hidden">
@@ -148,7 +170,11 @@ const AdminEventPanel = () => {
                     <Button size="sm" variant="default">
                       Edit
                     </Button>
-                    <Button size="sm" variant="destructive">
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => handleDeleteEvent(event._id)}
+                    >
                       Delete
                     </Button>
                   </div>

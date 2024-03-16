@@ -74,6 +74,7 @@ const AdminHome: React.FC = () => {
         const data: any = err?.response?.data;
         if (data) {
           toast.error(data?.message);
+          localStorage.removeItem("admin_access_token");
         } else {
           toast.error("session timeout: you need to login again");
         }
@@ -156,7 +157,7 @@ const AdminHome: React.FC = () => {
               </div>
             </div>
           </div>
-          <Table >
+          <Table>
             <TableCaption>All the users on Internhub website.</TableCaption>
             <TableHeader>
               <TableRow>

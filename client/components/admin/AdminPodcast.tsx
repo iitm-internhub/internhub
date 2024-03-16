@@ -7,11 +7,9 @@ import Image from "next/image";
 
 import PlayIcon from "@/public/icons/play.svg";
 import DownloadIcon from "@/public/icons/download.svg";
-import LocationIcon from "@/public/icons/map.svg";
 import CalendarIcon from "@/public/icons/calendar.svg";
 import PlusIcon from "@/public/icons/plus.svg";
 
-import PodcastBanner from "@/public/images/podcast-banner.jpg";
 import Link from "next/link";
 import axiosInstance from "@/lib/axios-instance";
 import { AxiosError } from "axios";
@@ -67,6 +65,31 @@ const AdminPodcast: React.FC = () => {
       </>
     );
   }
+
+  const handleDeletePodcast = async (podcastID: string) => {
+    try {
+      const token = localStorage.getItem("admin_access_token");
+      const { data } = await axiosInstance.delete(
+        `/api/v1/podcast-admin/delete/${podcastID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(data);
+
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      const data: any = err?.response?.data;
+      toast.error(data?.message);
+    }
+  };
+
   return (
     <>
       <Link href="/admin/podcast" className="">
@@ -170,7 +193,11 @@ const AdminPodcast: React.FC = () => {
                     <Button size="sm" variant="default">
                       Edit
                     </Button>
-                    <Button size="sm" variant="destructive">
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => handleDeletePodcast(podcast._id)}
+                    >
                       Delete
                     </Button>
                   </div>

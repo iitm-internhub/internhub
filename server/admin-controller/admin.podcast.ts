@@ -41,8 +41,8 @@ const createPodcastDetails = async (req: Request, res: Response) => {
 
     const podcastCreated = await newPodcast.save();
 
-    if (cache.has("podcasts")) {
-      cache.del("podcasts");
+    if (cache.has("podcasts-admin")) {
+      cache.del("podcasts-admin");
     }
 
     if (Object.keys(podcastCreated).length === 0) {
@@ -88,4 +88,31 @@ const getAllPodcasts = async (req: Request, res: Response) => {
   }
 };
 
-export { createPodcastDetails, getAllPodcasts };
+const deletePodcast = async (req: Request, res: Response) => {
+  const podcastID = req.params.podcastID;
+
+  try {
+    const isPodcastExists = await Podcast.findById(podcastID);
+
+    if (!isPodcastExists || Object.keys(isPodcastExists).length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Podcast not found.",
+      });
+    }
+
+    await Podcast.findByIdAndDelete(podcastID);
+    if (cache.has("podcasts-admin")) {
+      cache.del("podcasts-admin");
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Podcast deleted.",
+    });
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
+export { createPodcastDetails, getAllPodcasts, deletePodcast };

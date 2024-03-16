@@ -20,7 +20,7 @@ import axiosInstance from "@/lib/axios-instance";
 
 import Loader from "../shared/Loader";
 interface CompanyInterface {
-  id: string;
+  _id: string;
   companyName: string;
   companyDescription: string;
   companyJobTitle: string;
@@ -37,6 +37,7 @@ const UPLOADCARE_BASE_URL = "https://ucarecdn.com/";
 const AdminCompanyPanel: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [companies, setCompanies] = useState<CompanyInterface[] | null>();
+
   useEffect(() => {
     const getAllCompanies = async () => {
       try {
@@ -73,6 +74,28 @@ const AdminCompanyPanel: React.FC = () => {
     );
   }
 
+  const handleDeleteCompany = async (companyID: string) => {
+    try {
+      const token = localStorage.getItem("admin_access_token");
+      const { data } = await axiosInstance.delete(
+        `/api/v1/company-admin/delete/${companyID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      const data: any = err?.response?.data;
+      toast.error(data?.message);
+    }
+  };
+
   return (
     <>
       <Link href="/admin/company">
@@ -94,7 +117,7 @@ const AdminCompanyPanel: React.FC = () => {
           {companies.map((company) => (
             <Card
               className="w-full  shadow-lg backdrop-blur-lg shadow-[#ccbb82] dark:shadow-blue-900 max-w-sm mx-auto"
-              key={company.id}
+              key={company._id}
             >
               <div className="relative">
                 <div className="aspect-[16/9] rounded-t-lg overflow-hidden">
@@ -144,7 +167,11 @@ const AdminCompanyPanel: React.FC = () => {
                     <Button size="sm" variant="default">
                       Edit
                     </Button>
-                    <Button size="sm" variant="destructive">
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => handleDeleteCompany(company._id)}
+                    >
                       Delete
                     </Button>
                   </div>
