@@ -11,7 +11,7 @@ import Image from "next/image";
 const AsideNavCompany = dynamic(() => import("./AsideNavCompany"), {
   loading: Loader,
 });
-const AdminCompanyPanel = dynamic(() => import("./AdminCompany"), {
+const AddCompanyStudent = dynamic(() => import("./CompanyStudentUpload"), {
   loading: Loader,
 });
 const AdminEventPanel = dynamic(() => import("./AdminEvent"), {
@@ -57,7 +57,12 @@ const AdminRootCompany: React.FC = () => {
           </div>
         </Button>
       </div>
-      <div className=""></div>
+      <div className="">
+      <div className="">
+        {isActiveTab === "home" && <AddCompanyStudent />}
+      
+      </div>
+      </div>
     </section>
   );
 };

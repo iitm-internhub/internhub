@@ -3,7 +3,6 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import connectDatabase from "./db/connectDatabase";
 
-
 import { universal_limiter } from "./middleware/rateLimiters";
 
 import AuthenticationHandler from "./route/authentication.route";
