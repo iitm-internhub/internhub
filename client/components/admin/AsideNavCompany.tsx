@@ -16,7 +16,7 @@ const AsideNavCompany: React.FC<AsideNavAdminProps> = ({
   isActiveTab,
 }) => {
   const navLinks = [
-    { image: HomeIcon, title: "Home" },
+    { image: HomeIcon, title: "Upload students data" },
     { image: EventIcon, title: "Get students data" },
     
   ];

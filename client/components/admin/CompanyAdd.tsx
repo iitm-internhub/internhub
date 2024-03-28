@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import eventFormSchema from "@/lib/schemas/events.schema";
 import { Textarea } from "../ui/textarea";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
